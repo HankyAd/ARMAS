@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import cn.easyar.CameraDevice;
+
 import static cn.easyar.engine.EasyAR.initialize;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //do something
+                CameraDevice cd = new CameraDevice();
+                cd.open(1);
             }
         });
     }
