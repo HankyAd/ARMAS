@@ -9,14 +9,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import cn.easyar.CameraDevice;
+import cn.easyar.*;
 
-import static cn.easyar.engine.EasyAR.initialize;
 
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initialize(this, "uYJRHQ2vqULqxQcmE1OFYv8TBGseBTZUP0dhQCPKaXJl4d2ibl3MExjqCrNeasuLipTssNCdd7W7NccREFTMssTaBioqxIB4jglycNbWoMEK7caZYVZIBypmod6kHFjQ3fDMs85OSplx7ZpoGIeZY0xwYIo3ZzQvSetpYab1sY4nMPvu6YO7saVT1DvgWRSXLzX5eGyl");
+        String key = "Dvwi44jdfu7RFcq2jN6vFBNUKTHiStKtfoevOz3CzTKGtz4J1tHCu9MtyYorV0sJGJFQs747c7Uu07S39cYooN4sNqBeE7gi8DRg8oZN25VdKdVbK3csqyWPuBNoqmy9FimsvyOU81Bd0LB9XX8Gga13OOp33x1XFtod00m7Wh3xsn8f9VCfsIIucdki8OpnQeuswZNo";
+        Engine.initialize(this, key);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CameraDevice cd = new CameraDevice();
-                cd.open(1);
+                CameraFrameStreamer cfs = new CameraFrameStreamer();
+                cfs.attachCamera(cd);
             }
         });
     }

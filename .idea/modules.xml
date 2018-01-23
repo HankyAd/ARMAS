@@ -3,8 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ARMAS.iml" filepath="$PROJECT_DIR$/ARMAS.iml" />
-      <module fileurl="file://C:\Users\pan_9\Documents\GitHub\ARMAS\ARMAS.iml" filepath="C:\Users\pan_9\Documents\GitHub\ARMAS\ARMAS.iml" />
-      <module fileurl="file://C:\Users\pan_9\Documents\GitHub\ARMAS\app\app.iml" filepath="C:\Users\pan_9\Documents\GitHub\ARMAS\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
