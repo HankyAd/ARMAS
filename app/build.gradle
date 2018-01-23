@@ -16,9 +16,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    ndk {
-        cppFlags.add("-I${file("/path/to/EasyARSDK/package/include")}".toString())
-    }
 }
 
 dependencies {
