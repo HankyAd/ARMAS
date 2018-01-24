@@ -8,52 +8,62 @@
 
 package com.example.adam.armas;
 
-import android.content.Context;
-import android.opengl.GLSurfaceView;
-
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.opengles.GL10;
 
+import android.content.Context;
+import android.opengl.GLSurfaceView;
+import android.util.Log;
+import android.widget.Toast;
+
 import cn.easyar.Engine;
 
 public class GLView extends GLSurfaceView
 {
-    private CameraAR cameraAR;
+    private HelloAR helloAR;
+    private HelloAR.MessageAlerter onAlert;
 
-    public CameraAR getCameraAR(){
-        return cameraAR;
-    }
-
-    public GLView(Context context)
+    public GLView(final Context context)
     {
         super(context);
         setEGLContextFactory(new ContextFactory());
         setEGLConfigChooser(new ConfigChooser());
 
-        cameraAR = new CameraAR();
+        helloAR = new HelloAR();
+        onAlert = new HelloAR.MessageAlerter() {
+            @Override
+            public void invoke(final String s) {
+                GLView.this.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(context, s, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        };
 
         this.setRenderer(new GLSurfaceView.Renderer() {
             @Override
             public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-                synchronized (cameraAR) {
-                    cameraAR.initGL();
+                synchronized (helloAR) {
+                    helloAR.initGL();
                 }
             }
 
             @Override
             public void onSurfaceChanged(GL10 gl, int w, int h) {
-                synchronized (cameraAR) {
-                    cameraAR.resizeGL(w, h);
+                synchronized (helloAR) {
+                    helloAR.resizeGL(w, h);
                 }
             }
 
             @Override
             public void onDrawFrame(GL10 gl) {
-                synchronized (cameraAR) {
-                    cameraAR.render();
+                synchronized (helloAR) {
+                    helloAR.render();
                 }
             }
         });
@@ -64,9 +74,9 @@ public class GLView extends GLSurfaceView
     protected void onAttachedToWindow()
     {
         super.onAttachedToWindow();
-        synchronized (cameraAR) {
-            if (cameraAR.initialize()) {
-                cameraAR.start();
+        synchronized (helloAR) {
+            if (helloAR.initialize(onAlert)) {
+                helloAR.start();
             }
         }
     }
@@ -74,9 +84,9 @@ public class GLView extends GLSurfaceView
     @Override
     protected void onDetachedFromWindow()
     {
-        synchronized (cameraAR) {
-            cameraAR.stop();
-            cameraAR.dispose();
+        synchronized (helloAR) {
+            helloAR.stop();
+            helloAR.dispose();
         }
         super.onDetachedFromWindow();
     }

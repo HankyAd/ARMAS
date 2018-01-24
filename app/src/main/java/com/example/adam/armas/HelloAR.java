@@ -8,41 +8,35 @@
 
 package com.example.adam.armas;
 
+import java.util.ArrayList;
 import android.opengl.GLES20;
 import android.util.Log;
 
-import java.util.ArrayList;
+import com.example.adam.armas.BoxRenderer;
 
-import cn.easyar.CameraCalibration;
-import cn.easyar.CameraDevice;
-import cn.easyar.CameraDeviceFocusMode;
-import cn.easyar.CameraDeviceType;
-import cn.easyar.CameraFrameStreamer;
-import cn.easyar.Frame;
-import cn.easyar.FunctorOfVoidFromPointerOfTargetAndBool;
-import cn.easyar.ImageTarget;
-import cn.easyar.ImageTracker;
-import cn.easyar.Renderer;
-import cn.easyar.StorageType;
-import cn.easyar.Target;
-import cn.easyar.TargetInstance;
-import cn.easyar.TargetStatus;
-import cn.easyar.Vec2I;
-import cn.easyar.Vec4I;
+import cn.easyar.*;
 
-public class CameraAR
+public class HelloAR
 {
     private CameraDevice camera;
     private CameraFrameStreamer streamer;
     private ArrayList<ImageTracker> trackers;
     private Renderer videobg_renderer;
     private BoxRenderer box_renderer;
+    private QRCodeScanner qrcode_scanner;
     private boolean viewport_changed = false;
     private Vec2I view_size = new Vec2I(0, 0);
     private int rotation = 0;
     private Vec4I viewport = new Vec4I(0, 0, 1280, 720);
+    private int previous_qrcode_index = -1;
+    private MessageAlerter onAlert;
 
-    public CameraAR()
+    public interface MessageAlerter
+    {
+        void invoke(String s);
+    }
+
+    public HelloAR()
     {
         trackers = new ArrayList<ImageTracker>();
     }
@@ -92,11 +86,14 @@ public class CameraAR
         }
     }
 
-    public boolean initialize()
+    public boolean initialize(MessageAlerter onAlert)
     {
         camera = new CameraDevice();
         streamer = new CameraFrameStreamer();
         streamer.attachCamera(camera);
+        qrcode_scanner = new QRCodeScanner();
+        qrcode_scanner.attachStreamer(streamer);
+        this.onAlert = onAlert;
 
         boolean status = true;
         status &= camera.open(CameraDeviceType.Default);
@@ -125,6 +122,10 @@ public class CameraAR
             videobg_renderer.dispose();
             videobg_renderer = null;
         }
+        if (qrcode_scanner != null) {
+            qrcode_scanner.dispose();
+            qrcode_scanner = null;
+        }
         if (streamer != null) {
             streamer.dispose();
             streamer = null;
@@ -140,6 +141,7 @@ public class CameraAR
         boolean status = true;
         status &= (camera != null) && camera.start();
         status &= (streamer != null) && streamer.start();
+        status &= (qrcode_scanner != null) && qrcode_scanner.start();
         camera.setFocusMode(CameraDeviceFocusMode.Continousauto);
         for (ImageTracker tracker : trackers) {
             status &= tracker.start();
@@ -153,6 +155,7 @@ public class CameraAR
         for (ImageTracker tracker : trackers) {
             status &= tracker.stop();
         }
+        status &= (qrcode_scanner != null) && qrcode_scanner.stop();
         status &= (streamer != null) && streamer.stop();
         status &= (camera != null) && camera.stop();
         return status;
@@ -226,13 +229,22 @@ public class CameraAR
                 int status = targetInstance.status();
                 if (status == TargetStatus.Tracked) {
                     Target target = targetInstance.target();
-                    ImageTarget imagetarget = target instanceof ImageTarget ? (ImageTarget) (target) : null;
+                    ImageTarget imagetarget = target instanceof ImageTarget ? (ImageTarget)(target) : null;
                     if (imagetarget == null) {
                         continue;
                     }
                     if (box_renderer != null) {
                         box_renderer.render(camera.projectionGL(0.2f, 500.f), targetInstance.poseGL(), imagetarget.size());
                     }
+                }
+            }
+
+            if (frame.index() != previous_qrcode_index) {
+                previous_qrcode_index = frame.index();
+                String text = frame.text();
+                if (text != null && !text.equals("")) {
+                    Log.i("HelloAR", "got qrcode: " + text);
+                    onAlert.invoke("got qrcode: " + text);
                 }
             }
         }
