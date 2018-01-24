@@ -23,6 +23,10 @@ public class GLView extends GLSurfaceView
 {
     private CameraAR cameraAR;
 
+    public CameraAR getCameraAR(){
+        return cameraAR;
+    }
+
     public GLView(Context context)
     {
         super(context);

@@ -29,14 +29,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
-            @Override
+            boolean clicked = false;
             public void onClick(View view) {
-                ((ViewGroup) findViewById(R.id.preview)).addView(glView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                //FloatingActionButton b = findViewById(R.id.fab);
-                //b.setVisibility(View.GONE);
+                if(!clicked){
+                    clicked = true;
+                    ((ViewGroup) findViewById(R.id.preview)).addView(glView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                }else{
+                    clicked = false;
+                    ((ViewGroup) findViewById(R.id.preview)).removeAllViews();
+                }
             }
         });
 

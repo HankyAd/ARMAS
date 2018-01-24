@@ -20,12 +20,16 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include
+        layout="@layout/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="567dp" />
 
     <FrameLayout
         android:id="@+id/preview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="visible">
 
     </FrameLayout>
 
