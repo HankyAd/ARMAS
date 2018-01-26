@@ -33,6 +33,7 @@ import cn.easyar.Vec4I;
 public class HelloAR
 {
     private CameraDevice camera;
+    private BoxRenderer box_renderer;
     private CameraFrameStreamer streamer;
     private ArrayList<ImageTracker> trackers;
     private Renderer videobg_renderer;
@@ -47,6 +48,7 @@ public class HelloAR
     private int rotation = 0;
     private Vec4I viewport = new Vec4I(0, 0, 1280, 720);
     private MessageAlerter onAlert;
+    private int previous_qrcode_index = -1;
 
     public HelloAR()
     {
@@ -332,9 +334,55 @@ public class HelloAR
                     tracked_target = 0;
                 }
             }
+        }finally {
+            frame.dispose();
+        }
+        GLES20.glClearColor(1.f, 1.f, 1.f, 1.f);
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+
+        if (videobg_renderer != null) {
+            Vec4I default_viewport = new Vec4I(0, 0, view_size.data[0], view_size.data[1]);
+            GLES20.glViewport(default_viewport.data[0], default_viewport.data[1], default_viewport.data[2], default_viewport.data[3]);
+            if (videobg_renderer.renderErrorMessage(default_viewport)) {
+                return;
+            }
+        }
+
+        if (streamer == null) { return; }
+        Frame frame1 = streamer.peek();
+        try {
+            updateViewport();
+            GLES20.glViewport(viewport.data[0], viewport.data[1], viewport.data[2], viewport.data[3]);
+
+            if (videobg_renderer != null) {
+                videobg_renderer.render(frame1, viewport);
+            }
+
+            for (TargetInstance targetInstance : frame1.targetInstances()) {
+                int status = targetInstance.status();
+                if (status == TargetStatus.Tracked) {
+                    Target target = targetInstance.target();
+                    ImageTarget imagetarget = target instanceof ImageTarget ? (ImageTarget)(target) : null;
+                    if (imagetarget == null) {
+                        continue;
+                    }
+                    if (box_renderer != null) {
+                        box_renderer.render(camera.projectionGL(0.2f, 500.f), targetInstance.poseGL(), imagetarget.size());
+                    }
+                }
+            }
+
+            if (frame1.index() != previous_qrcode_index) {
+                previous_qrcode_index = frame1.index();
+                String text = frame1.text();
+                if (text != null && !text.equals("")) {
+                    Log.i("HelloAR", "got qrcode: " + text);
+                    onAlert.invoke("got qrcode: " + text);
+                }
+            }
         }
         finally {
-            frame.dispose();
+            frame1.dispose();
         }
     }
 }
