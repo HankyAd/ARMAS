@@ -154,6 +154,7 @@ public class HelloAR
             tracker.dispose();
         }
         trackers.clear();
+        box_renderer = null;
         video_renderers.clear();
         current_video_renderer = null;
         if (videobg_renderer != null) {
@@ -300,7 +301,7 @@ public class HelloAR
                             String target_name = target.name();
                             if (target_name.equals("argame") && video_renderers.get(0).texId() != 0) {
                                 video = new ARVideo();
-                                video.openVideoFile("video.mp4", video_renderers.get(0).texId());
+                                video.openVideoFile("video1.mp4", video_renderers.get(0).texId());
                                 current_video_renderer = video_renderers.get(0);
                             } else if (target_name.equals("namecard") && video_renderers.get(1).texId() != 0) {
                                 video = new ARVideo();
