@@ -34,6 +34,8 @@ public abstract class Program {
 	public int getHandle() {
 		return programHandle;
 	}
+
+
 	
 	public void delete() {
 		GLES20.glDeleteShader(vertexShaderHandle);
