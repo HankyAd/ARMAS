@@ -91,4 +91,6 @@ public class Texample2Renderer implements GLSurfaceView.Renderer  {
 				-useForOrtho/2,
 				useForOrtho/2, 0.1f, 100f);
 	}
+
+
 }

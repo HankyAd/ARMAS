@@ -17,6 +17,7 @@ import android.graphics.Typeface;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 
+import cn.easyar.Matrix44F;
 
 
 public class GLText {
@@ -245,7 +246,7 @@ public class GLText {
 	public void begin(float alpha, float[] vpMatrix)  {
 		begin( 1.0f, 1.0f, 1.0f, alpha, vpMatrix );               // Begin with White (Explicit Alpha)
 	}
-	public void begin(float red, float green, float blue, float alpha, float[] vpMatrix)  {
+	public void begin(float red, float green, float blue, float alpha, float[]  vpMatrix)  {
 		initDraw(red, green, blue, alpha);
 		batch.beginBatch(vpMatrix);                             // Begin Batch
 	}
@@ -312,7 +313,7 @@ public class GLText {
 	}
 	
 	public void draw(String text, float x, float y) {
-		draw(text, x, y, 0, 0);
+		draw(text, x, y);
 	}
 
 	//--Draw Text Centered--//

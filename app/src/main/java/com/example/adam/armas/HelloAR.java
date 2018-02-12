@@ -37,7 +37,6 @@ public class HelloAR
     private ArrayList<ImageTracker> trackers;
     private Renderer videobg_renderer;
     private BoxRenderer box_renderer;
-    private GLText gltext;
     private QRCodeScanner qrcode_scanner;
     private boolean viewport_changed = false;
     private Vec2I view_size = new Vec2I(0, 0);
@@ -60,14 +59,14 @@ public class HelloAR
     {
         ImageTarget target = new ImageTarget();
         String jstr = "{\n"
-            + "  \"images\" :\n"
-            + "  [\n"
-            + "    {\n"
-            + "      \"image\" : \"" + path + "\",\n"
-            + "      \"name\" : \"" + path.substring(0, path.indexOf(".")) + "\"\n"
-            + "    }\n"
-            + "  ]\n"
-            + "}";
+                + "  \"images\" :\n"
+                + "  [\n"
+                + "    {\n"
+                + "      \"image\" : \"" + path + "\",\n"
+                + "      \"name\" : \"" + path.substring(0, path.indexOf(".")) + "\"\n"
+                + "    }\n"
+                + "  ]\n"
+                + "}";
         target.setup(jstr, StorageType.Assets | StorageType.Json, "");
         tracker.loadTarget(target, new FunctorOfVoidFromPointerOfTargetAndBool() {
             @Override
@@ -120,7 +119,7 @@ public class HelloAR
         loadFromJsonFile(tracker, "targets.json", "argame");
         loadFromJsonFile(tracker, "targets.json", "idback");
         loadAllFromJsonFile(tracker, "targets2.json");
-        loadFromImage(tracker, "namecard.jpg");
+        loadFromImage(tracker, "44.jpg");
         trackers.add(tracker);
 
         return status;
@@ -258,8 +257,8 @@ public class HelloAR
                 previous_qrcode_index = frame.index();
                 String text = frame.text();
                 if (text != null && !text.equals("")) {
-                    Log.i("HelloAR", "ARMAS DEMO READ THE QR:                 " + text);
-                    onAlert.invoke("ARMAS DEMO READ THE QR: " + text);
+                    Log.i("HelloAR", "ARMAS demo got the qr code:" + text);
+                    onAlert.invoke("ARMAS demo got the qr code: " + text);
                 }
             }
         }
