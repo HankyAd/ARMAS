@@ -258,7 +258,7 @@ public class HelloAR
                                 current_video_renderer = video_renderers.get(0);
                             } else if (target_name.equals("namecard") && video_renderers.get(1).texId() != 0) {
                                 video = new ARVideo();
-                                video.openTransparentVideoFile("transparentvideo.mp4", video_renderers.get(1).texId());
+                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
                                 current_video_renderer = video_renderers.get(1);
                             } else if (target_name.equals("idback") && video_renderers.get(2).texId() != 0) {
                                 video = new ARVideo();
