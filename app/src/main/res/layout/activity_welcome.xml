@@ -18,20 +18,22 @@
         android:inputType="textCapCharacters"
         android:text="ARMAS"
         android:textColor="#fff"
-        android:textSize="40sp" />
+        android:textSize="60sp" />
 
     <ProgressBar
         android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyleHorizontal"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/splashText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="78dp"
+        android:layout_marginTop="77dp"
+        android:centerColor="@android:color/black"
+        android:centerY="0.75"
+        android:endColor="@android:color/black"
         android:indeterminate="true"
-        android:progress="25"
         android:minWidth="200dp"
-
-        />
+        android:progress="25"
+        android:startColor="@android:color/black" />
 
 </RelativeLayout>
