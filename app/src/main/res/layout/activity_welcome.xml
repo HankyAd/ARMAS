@@ -4,18 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loading21"
-    tools:context="com.example.adam.armas.WelcomeActivity">
+    tools:context="com.example.adam.armas.WelcomeActivity"
+    android:background="@color/colorPrimary">
 
     <EditText
         android:id="@+id/splashText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="139dp"
         android:ems="3"
-        android:inputType="textPersonName"
+        android:inputType="textCapCharacters"
         android:text="ARMAS"
-        android:textSize="40sp"
-        android:textColor="#fff"/>
+        android:textColor="#fff"
+        android:textSize="40sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/splashText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="78dp"
+        android:indeterminate="true"
+        android:progress="25"
+        android:minWidth="200dp"
+
+        />
 
 </RelativeLayout>
