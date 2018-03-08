@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ARMAS.iml" filepath="$PROJECT_DIR$/ARMAS.iml" />
+      <module fileurl="file://C:\Users\Kypros\Documents\GitHub\ARMAS\GitHub-ARMAS.iml" filepath="C:\Users\Kypros\Documents\GitHub\ARMAS\GitHub-ARMAS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
