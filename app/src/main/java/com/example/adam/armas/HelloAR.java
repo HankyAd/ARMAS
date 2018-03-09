@@ -22,6 +22,7 @@ import cn.easyar.Frame;
 import cn.easyar.FunctorOfVoidFromPointerOfTargetAndBool;
 import cn.easyar.ImageTarget;
 import cn.easyar.ImageTracker;
+import cn.easyar.QRCodeScanner;
 import cn.easyar.Renderer;
 import cn.easyar.StorageType;
 import cn.easyar.Target;
@@ -38,6 +39,7 @@ public class HelloAR
     private Renderer videobg_renderer;
     private ArrayList<VideoRenderer> video_renderers;
     private VideoRenderer current_video_renderer;
+    private QRCodeScanner qrcode_scanner;
     private int tracked_target = 0;
     private int active_target = 0;
     private ARVideo video = null;
@@ -45,6 +47,13 @@ public class HelloAR
     private Vec2I view_size = new Vec2I(0, 0);
     private int rotation = 0;
     private Vec4I viewport = new Vec4I(0, 0, 1280, 720);
+    private int previous_qrcode_index = -1;
+    private MessageAlerter onAlert;
+
+    public interface MessageAlerter
+    {
+        void invoke(String s);
+    }
 
     public HelloAR()
     {
@@ -86,45 +95,61 @@ public class HelloAR
             });
         }
     }
-
-    public boolean initialize()
+    private void loadFromJsonFile(ImageTracker tracker, String path, String targetname)
+    {
+        ImageTarget target = new ImageTarget();
+        target.setup(path, StorageType.Assets, targetname);
+        tracker.loadTarget(target, new FunctorOfVoidFromPointerOfTargetAndBool() {
+            @Override
+            public void invoke(Target target, boolean status) {
+                Log.i("HelloAR", String.format("load target (%b): %s (%d)", status, target.name(), target.runtimeID()));
+            }
+        });
+    }
+    public boolean initialize(MessageAlerter onAlert)
     {
         camera = new CameraDevice();
         streamer = new CameraFrameStreamer();
         streamer.attachCamera(camera);
+        qrcode_scanner = new QRCodeScanner();
+        qrcode_scanner.attachStreamer(streamer);
+        this.onAlert = onAlert;
 
         boolean status = true;
         status &= camera.open(CameraDeviceType.Default);
         camera.setSize(new Vec2I(1280, 720));
 
         if (!status) { return status; }
-        ImageTracker tracker = new ImageTracker();
-        tracker.attachStreamer(streamer);
-        loadAllFromJsonFile(tracker, "targets.json");
-        loadFromImage(tracker, "namecard.jpg");
-        trackers.add(tracker);
+        ImageTracker tracker1 = new ImageTracker();
+        ImageTracker tracker2 = new ImageTracker();
+        tracker1.attachStreamer(streamer);
+        tracker2.attachStreamer(streamer);
+        tracker1.setSimultaneousNum(1);
+        tracker2.setSimultaneousNum(2);
+        loadFromJsonFile(tracker2, "targets.json", "argame");
+        loadFromJsonFile(tracker1, "targets.json", "idback");
+        loadAllFromJsonFile(tracker2, "targets2.json");
+        loadFromImage(tracker1, "namecard.jpg");
+        trackers.add(tracker1);
+        trackers.add(tracker2);
 
         return status;
     }
 
     public void dispose()
     {
-        if (video != null) {
-            video.dispose();
-            video = null;
-        }
-        tracked_target = 0;
-        active_target = 0;
-
         for (ImageTracker tracker : trackers) {
             tracker.dispose();
         }
         trackers.clear();
-        video_renderers.clear();
-        current_video_renderer = null;
+
         if (videobg_renderer != null) {
             videobg_renderer.dispose();
             videobg_renderer = null;
+        }
+        if (qrcode_scanner != null) {
+            qrcode_scanner.dispose();
+            qrcode_scanner = null;
         }
         if (streamer != null) {
             streamer.dispose();
@@ -135,12 +160,12 @@ public class HelloAR
             camera = null;
         }
     }
-
     public boolean start()
     {
         boolean status = true;
         status &= (camera != null) && camera.start();
         status &= (streamer != null) && streamer.start();
+        status &= (qrcode_scanner != null) && qrcode_scanner.start();
         camera.setFocusMode(CameraDeviceFocusMode.Continousauto);
         for (ImageTracker tracker : trackers) {
             status &= tracker.start();
@@ -154,6 +179,7 @@ public class HelloAR
         for (ImageTracker tracker : trackers) {
             status &= tracker.stop();
         }
+        status &= (qrcode_scanner != null) && qrcode_scanner.stop();
         status &= (streamer != null) && streamer.stop();
         status &= (camera != null) && camera.stop();
         return status;
@@ -286,6 +312,14 @@ public class HelloAR
                 if (tracked_target != 0) {
                     video.onLost();
                     tracked_target = 0;
+                }
+            }
+            if (frame.index() != previous_qrcode_index) {
+                previous_qrcode_index = frame.index();
+                String text = frame.text();
+                if (text != null && !text.equals("")) {
+                    Log.i("HelloAR", "got qrcode: " + text);
+                    onAlert.invoke("got qrcode: " + text);
                 }
             }
         }
