@@ -21,6 +21,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
+        android:id="@+id/include"
         layout="@layout/content_main"
         android:layout_width="match_parent"
         android:layout_height="567dp" />
@@ -41,5 +42,17 @@
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/colorPrimaryDark"
         app:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/InfoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/background_dark"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="left|bottom"
+        app:srcCompat="@android:drawable/ic_dialog_info" />
 
 </android.support.design.widget.CoordinatorLayout>

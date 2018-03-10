@@ -1,6 +1,6 @@
 //================================================================================================================================
 //
-//  Copyright (c) 2015-2017 VisionStar Information Technology (Shanghai) Co., Ltd. All Rights Reserved.
+//  Copyright (c) 2015-2018 VisionStar Information Technology (Shanghai) Co., Ltd. All Rights Reserved.
 //  EasyAR is the registered trademark or trademark of VisionStar Information Technology (Shanghai) Co., Ltd in China
 //  and other countries for the augmented reality technology developed by VisionStar Information Technology (Shanghai) Co., Ltd.
 //
@@ -14,8 +14,8 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
-import cn.easyar.Vec2F;
 import cn.easyar.Matrix44F;
+import cn.easyar.Vec2F;
 
 public class VideoRenderer
 {

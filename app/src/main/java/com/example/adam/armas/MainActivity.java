@@ -11,12 +11,16 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import java.io.*;
+import java.io.FileReader;
+import java.io.IOException;
 
 import java.util.HashMap;
 import cn.easyar.*;
@@ -24,11 +28,18 @@ import cn.easyar.*;
 
 public class MainActivity extends AppCompatActivity {
     private GLView glView;
+    private MessageAlerter onAlert;
+    private String targetName;
 
+    public interface MessageAlerter
+    {
+        void invoke(String s);
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DAO dao = new DAO(this);
         String key = "Dvwi44jdfu7RFcq2jN6vFBNUKTHiStKtfoevOz3CzTKGtz4J1tHCu9MtyYorV0sJGJFQs747c7Uu07S39cYooN4sNqBeE7gi8DRg8oZN25VdKdVbK3csqyWPuBNoqmy9FimsvyOU81Bd0LB9XX8Gga13OOp33x1XFtod00m7Wh3xsn8f9VCfsIIucdki8OpnQeuswZNo";
         Engine.initialize(this, key);
         super.onCreate(savedInstanceState);
@@ -36,30 +47,48 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton InfoButton = (FloatingActionButton) findViewById(R.id.InfoButton);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        ///TextRenderCode
-
-
-
-
-        //untillhere
         fab.setOnClickListener(new View.OnClickListener() {
             boolean clicked = false;
-
             public void onClick(View view) {
                 if (!clicked) {
                     clicked = true;
-                    ((ViewGroup) findViewById(R.id.preview)).addView(glView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    ((ViewGroup) findViewById(R.id.preview)).addView(glView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    InfoButton.setVisibility(view.VISIBLE);
+                    glView.onResume();
+
                 } else {
                     clicked = false;
+                    glView.onPause();
                     ((ViewGroup) findViewById(R.id.preview)).removeAllViews();
+                    InfoButton.setVisibility(view.INVISIBLE);
+
                 }
+
             }
         });
 
 
-///copied from HelloAr for camera permissions
+        InfoButton.setOnClickListener(new View.OnClickListener() {
+            boolean clicked = false;
+            public void onClick(View view) {
+                if (!clicked) {
+
+
+
+
+
+                } else {
+
+                }
+
+            }
+        });
+
+
+
 
 
         glView = new GLView(this);
@@ -75,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private interface PermissionCallback {
         void onSuccess();
@@ -153,11 +183,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     ////untill here
     //Text render code4
 
 
-    
+
 }
 
 

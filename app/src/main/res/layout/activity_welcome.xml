@@ -4,36 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.adam.armas.WelcomeActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.example.adam.armas.WelcomeActivity">
 
-    <EditText
+    <TextView
         android:id="@+id/splashText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="139dp"
+        android:layout_marginTop="149dp"
         android:ems="3"
+        android:focusableInTouchMode="false"
         android:inputType="textCapCharacters"
         android:text="ARMAS"
         android:textColor="#fff"
-        android:textSize="60sp" />
+        android:textColorLink="@color/colorPrimary"
+        android:textSize="80sp" />
+
 
     <ProgressBar
-        android:id="@+id/progressBar2"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:id="@+id/progressBar1"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/splashText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="77dp"
-        android:centerColor="@android:color/black"
-        android:centerY="0.75"
-        android:endColor="@android:color/black"
+        android:layout_marginTop="78dp"
         android:indeterminate="true"
         android:minWidth="200dp"
         android:progress="25"
-        android:startColor="@android:color/black" />
+
+        />
+
 
 </RelativeLayout>
