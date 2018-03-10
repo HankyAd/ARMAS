@@ -320,7 +320,6 @@ public class HelloAR
                 if (text != null && !text.equals("")) {
                     Log.i("HelloAR", "got qrcode: " + text);
                     onAlert.invoke("got qrcode: " + text);
-                    onAlert.invoke("got qrcode: " + text);
                 }
             }
         }
