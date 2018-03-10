@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private MessageAlerter onAlert;
     private String targetName;
     private Boolean asbestosDetected = false;
+    private String imageName = null;
     //DAO dao = new DAO(this);
 
     public interface MessageAlerter
@@ -65,15 +66,13 @@ public class MainActivity extends AppCompatActivity {
                 if (!clicked) {
                     clicked = true;
                     ((ViewGroup) findViewById(R.id.preview)).addView(glView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    InfoButton.setVisibility(view.VISIBLE);
+                    //InfoButton.setVisibility(view.VISIBLE);
                     glView.onResume();
-
                 } else {
                     clicked = false;
                     glView.onPause();
                     ((ViewGroup) findViewById(R.id.preview)).removeAllViews();
-                    InfoButton.setVisibility(view.INVISIBLE);
-
+                    //InfoButton.setVisibility(view.INVISIBLE);
                 }
 
             }
@@ -108,10 +107,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void setImageName(String imgName){
+        imageName = imgName;
+    }
+
     public void setAsbestosTrue(){
+        FloatingActionButton InfoButton = (FloatingActionButton) findViewById(R.id.InfoButton);
+        InfoButton.setVisibility(glView.VISIBLE);
         asbestosDetected = true;
+
     }
     public void setAsbestosFalse(){
+        FloatingActionButton InfoButton = (FloatingActionButton) findViewById(R.id.InfoButton);
+        InfoButton.setVisibility(glView.INVISIBLE);
         asbestosDetected = false;
     }
     private interface PermissionCallback {
