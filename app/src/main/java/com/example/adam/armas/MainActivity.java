@@ -31,6 +31,7 @@ import cn.easyar.*;
 
 public class MainActivity extends AppCompatActivity {
     private GLView glView;
+    private View vw;
     private MessageAlerter onAlert;
     private String targetName;
     private Boolean asbestosDetected = false;
@@ -112,15 +113,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setAsbestosTrue(){
-        FloatingActionButton InfoButton = (FloatingActionButton) findViewById(R.id.InfoButton);
-        InfoButton.setVisibility(glView.VISIBLE);
-        asbestosDetected = true;
+        try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    FloatingActionButton InfoButton = (FloatingActionButton) findViewById(R.id.InfoButton);
+                    InfoButton.setVisibility(findViewById(R.id.InfoButton).VISIBLE);
+                }
+            });
+            asbestosDetected = true;
+        } catch (Exception ex){
 
+        }
     }
     public void setAsbestosFalse(){
-        FloatingActionButton InfoButton = (FloatingActionButton) findViewById(R.id.InfoButton);
-        InfoButton.setVisibility(glView.INVISIBLE);
-        asbestosDetected = false;
+        try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    FloatingActionButton InfoButton = (FloatingActionButton) findViewById(R.id.InfoButton);
+                    InfoButton.setVisibility(findViewById(R.id.InfoButton).INVISIBLE);
+                }
+            });
+            asbestosDetected = false;
+        } catch (Exception ex){
+
+        }
     }
     private interface PermissionCallback {
         void onSuccess();
