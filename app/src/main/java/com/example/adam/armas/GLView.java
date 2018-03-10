@@ -10,6 +10,7 @@ package com.example.adam.armas;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.widget.Toast;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -22,15 +23,26 @@ import cn.easyar.Engine;
 public class GLView extends GLSurfaceView
 {
     private HelloAR helloAR;
+    private HelloAR.MessageAlerter onAlert;
 
-    public GLView(Context context)
+    public GLView(final Context context)
     {
         super(context);
         setEGLContextFactory(new ContextFactory());
         setEGLConfigChooser(new ConfigChooser());
 
         helloAR = new HelloAR();
-
+        onAlert = new HelloAR.MessageAlerter() {
+            @Override
+            public void invoke(final String s) {
+                GLView.this.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(context, s, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        };
         this.setRenderer(new GLSurfaceView.Renderer() {
             @Override
             public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -61,7 +73,7 @@ public class GLView extends GLSurfaceView
     {
         super.onAttachedToWindow();
         synchronized (helloAR) {
-            if (helloAR.initialize()) {
+            if (helloAR.initialize(onAlert)) {
                 helloAR.start();
             }
         }
