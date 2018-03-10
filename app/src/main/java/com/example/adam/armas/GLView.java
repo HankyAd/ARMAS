@@ -24,14 +24,17 @@ public class GLView extends GLSurfaceView
 {
     private HelloAR helloAR;
     private HelloAR.MessageAlerter onAlert;
+    private MainActivity mainAct;
 
-    public GLView(final Context context)
+    public GLView(final Context context, MainActivity mA)
     {
         super(context);
         setEGLContextFactory(new ContextFactory());
         setEGLConfigChooser(new ConfigChooser());
 
-        helloAR = new HelloAR();
+        mainAct = mA;
+
+        helloAR = new HelloAR(mainAct);
         onAlert = new HelloAR.MessageAlerter() {
             @Override
             public void invoke(final String s) {

@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private GLView glView;
     private MessageAlerter onAlert;
     private String targetName;
-    DAO dao = new DAO(this);
+    private Boolean asbestosDetected = false;
+    //DAO dao = new DAO(this);
 
     public interface MessageAlerter
     {
@@ -79,26 +80,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         InfoButton.setOnClickListener(new View.OnClickListener() {
-            boolean clicked = false;
             public void onClick(View view) {
-                if (!clicked) {
-
-
-
-
-
+                if (asbestosDetected) {
+                    System.out.println("Detected");
                 } else {
-
+                    System.out.println("Not Detected");
                 }
 
             }
         });
 
 
-
-
-
-        glView = new GLView(this);
+        glView = new GLView(this, this);
 
         requestCameraPermission(new PermissionCallback() {
             @Override
@@ -112,7 +105,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    public void toggleAsbestos(){
+        if (asbestosDetected == true){
+            asbestosDetected = false;
+        } else {
+            asbestosDetected = true;
+        }
+    }
     private interface PermissionCallback {
         void onSuccess();
 
@@ -189,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
     ////untill here

@@ -49,15 +49,17 @@ public class HelloAR
     private Vec4I viewport = new Vec4I(0, 0, 1280, 720);
     private int previous_qrcode_index = -1;
     private MessageAlerter onAlert;
+    private MainActivity mainActivity;
 
     public interface MessageAlerter
     {
         void invoke(String s);
     }
 
-    public HelloAR()
+    public HelloAR(MainActivity mA)
     {
         trackers = new ArrayList<ImageTracker>();
+        mainActivity = mA;
     }
 
     private void loadFromImage(ImageTracker tracker, String path)
@@ -286,11 +288,13 @@ public class HelloAR
                                 video = new ARVideo();
                                 video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
                                 current_video_renderer = video_renderers.get(1);
+                                mainActivity.toggleAsbestos();
                             } else if (target_name.equals("idback") && video_renderers.get(2).texId() != 0) {
                                 video = new ARVideo();
                                 video.openStreamingVideo("https://sightpvideo-cdn.sightp.com/sdkvideo/EasyARSDKShow201520.mp4", video_renderers.get(2).texId());
                                 current_video_renderer = video_renderers.get(2);
                             }
+                            mainActivity.toggleAsbestos();
                         }
                         if (video != null) {
                             video.onFound();
