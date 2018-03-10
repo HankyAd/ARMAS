@@ -2,6 +2,7 @@ package com.example.adam.armas;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.opengl.GLSurfaceView;
@@ -82,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (asbestosDetected) {
                     System.out.println("Detected");
+                    Intent intent2 = new Intent(MainActivity.this,InfoActivity.class);
+                    startActivity(intent2);
                 } else {
                     System.out.println("Not Detected");
                 }
