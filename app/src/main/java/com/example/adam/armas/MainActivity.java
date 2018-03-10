@@ -1,24 +1,42 @@
 package com.example.adam.armas;
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import java.io.*;
+import java.io.FileReader;
+import java.io.IOException;
+
 import java.util.HashMap;
 import cn.easyar.*;
 
 
 public class MainActivity extends AppCompatActivity {
     private GLView glView;
+    private MessageAlerter onAlert;
     private String targetName;
+
+    public interface MessageAlerter
+    {
+        void invoke(String s);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         DAO dao = new DAO(this);
@@ -46,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     glView.onPause();
                     ((ViewGroup) findViewById(R.id.preview)).removeAllViews();
                     InfoButton.setVisibility(view.INVISIBLE);
+
                 }
 
             }

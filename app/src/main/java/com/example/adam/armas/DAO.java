@@ -15,11 +15,6 @@ public class DAO{
 
     private SQLiteDatabase database;
 
-    public final static String House_Table="House_ID"; // name of table
-
-    public final static String House_ID="House_ID"; // id value for employee
-    public final static String House_Number="123";  // name of employee
-
     /**
      *
      * @param context
@@ -27,19 +22,16 @@ public class DAO{
     public DAO(Context context){
         dbHelper = new DatabaseHelper(context);
         database = dbHelper.getWritableDatabase();
+        createRecords();
     }
 
 
-    public long createRecords(String id, String name){
-        ContentValues values = new ContentValues();
-        values.put(House_Number, name);
-        return database.insert(House_Table, null, values);
+    public void createRecords(){
+        database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('123', 'Somewhere Ave', 'PO1 0AA');");
     }
 
     public Cursor selectRecords() {
-        String[] cols = new String[] {House_ID, House_Number};
-        Cursor mCursor = database.query(true, House_Table, cols,null
-                , null, null, null, null, null);
+        Cursor mCursor = database.rawQuery("select * from House",null);
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
