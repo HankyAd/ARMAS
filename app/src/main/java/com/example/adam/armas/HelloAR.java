@@ -270,6 +270,8 @@ public class HelloAR
                 int status = targetInstance.status();
                 if (status == TargetStatus.Tracked) {
                     int id = target.runtimeID();
+                    mainActivity.setAsbestosTrue();
+                    System.out.println("SET TO TRUE");
                     if (active_target != 0 && active_target != id) {
                         video.onLost();
                         video.dispose();
@@ -288,14 +290,14 @@ public class HelloAR
                                 video = new ARVideo();
                                 video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
                                 current_video_renderer = video_renderers.get(1);
-                                mainActivity.toggleAsbestos();
                             } else if (target_name.equals("idback") && video_renderers.get(2).texId() != 0) {
                                 video = new ARVideo();
                                 video.openStreamingVideo("https://sightpvideo-cdn.sightp.com/sdkvideo/EasyARSDKShow201520.mp4", video_renderers.get(2).texId());
                                 current_video_renderer = video_renderers.get(2);
                             }
-                            mainActivity.toggleAsbestos();
+
                         }
+
                         if (video != null) {
                             video.onFound();
                             tracked_target = id;
@@ -316,6 +318,8 @@ public class HelloAR
                 if (tracked_target != 0) {
                     video.onLost();
                     tracked_target = 0;
+                    mainActivity.setAsbestosFalse();
+                    System.out.println("SET TO FALSE");
                 }
             }
             if (frame.index() != previous_qrcode_index) {

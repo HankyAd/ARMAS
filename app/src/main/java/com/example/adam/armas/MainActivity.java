@@ -105,12 +105,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void toggleAsbestos(){
-        if (asbestosDetected == true){
-            asbestosDetected = false;
-        } else {
-            asbestosDetected = true;
-        }
+    public void setAsbestosTrue(){
+        asbestosDetected = true;
+    }
+    public void setAsbestosFalse(){
+        asbestosDetected = false;
     }
     private interface PermissionCallback {
         void onSuccess();
