@@ -3,12 +3,14 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private GLView glView;
     private MessageAlerter onAlert;
     private String targetName;
+    DAO dao = new DAO(this);
 
     public interface MessageAlerter
     {
@@ -39,7 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DAO dao = new DAO(this);
+        //dao.createRecords();
+        //Cursor c = dao.selectRecords();
+        //AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        //alertDialog.setMessage(c.getString(2));
+        //alertDialog.show();
         String key = "Dvwi44jdfu7RFcq2jN6vFBNUKTHiStKtfoevOz3CzTKGtz4J1tHCu9MtyYorV0sJGJFQs747c7Uu07S39cYooN4sNqBeE7gi8DRg8oZN25VdKdVbK3csqyWPuBNoqmy9FimsvyOU81Bd0LB9XX8Gga13OOp33x1XFtod00m7Wh3xsn8f9VCfsIIucdki8OpnQeuswZNo";
         Engine.initialize(this, key);
         super.onCreate(savedInstanceState);
