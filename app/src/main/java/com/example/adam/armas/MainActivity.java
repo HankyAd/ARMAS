@@ -3,6 +3,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         DAO dao = new DAO(this);
+        Cursor c = dao.selectRecords();
+        c.getString(1);
+
         String key = "Dvwi44jdfu7RFcq2jN6vFBNUKTHiStKtfoevOz3CzTKGtz4J1tHCu9MtyYorV0sJGJFQs747c7Uu07S39cYooN4sNqBeE7gi8DRg8oZN25VdKdVbK3csqyWPuBNoqmy9FimsvyOU81Bd0LB9XX8Gga13OOp33x1XFtod00m7Wh3xsn8f9VCfsIIucdki8OpnQeuswZNo";
         Engine.initialize(this, key);
         super.onCreate(savedInstanceState);
