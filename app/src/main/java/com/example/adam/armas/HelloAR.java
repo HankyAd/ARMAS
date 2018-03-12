@@ -66,14 +66,14 @@ public class HelloAR
     {
         ImageTarget target = new ImageTarget();
         String jstr = "{\n"
-            + "  \"images\" :\n"
-            + "  [\n"
-            + "    {\n"
-            + "      \"image\" : \"" + path + "\",\n"
-            + "      \"name\" : \"" + path.substring(0, path.indexOf(".")) + "\"\n"
-            + "    }\n"
-            + "  ]\n"
-            + "}";
+                + "  \"images\" :\n"
+                + "  [\n"
+                + "    {\n"
+                + "      \"image\" : \"" + path + "\",\n"
+                + "      \"name\" : \"" + path.substring(0, path.indexOf(".")) + "\"\n"
+                + "    }\n"
+                + "  ]\n"
+                + "}";
         target.setup(jstr, StorageType.Assets | StorageType.Json, "");
         tracker.loadTarget(target, new FunctorOfVoidFromPointerOfTargetAndBool() {
             @Override
@@ -288,6 +288,21 @@ public class HelloAR
                                 video.openVideoFile("video.mp4", video_renderers.get(0).texId());
                                 current_video_renderer = video_renderers.get(0);
                             } else if (target_name.equals("namecard") && video_renderers.get(1).texId() != 0) {
+                                video = new ARVideo();
+                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
+                                current_video_renderer = video_renderers.get(1);
+                                mainActivity.setImageName(target_name);
+                            } else if (target_name.equals("namecard7") && video_renderers.get(1).texId() != 0) {
+                                video = new ARVideo();
+                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
+                                current_video_renderer = video_renderers.get(1);
+                                mainActivity.setImageName(target_name);
+                            } else if (target_name.equals("namecard8") && video_renderers.get(1).texId() != 0) {
+                                video = new ARVideo();
+                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
+                                current_video_renderer = video_renderers.get(1);
+                                mainActivity.setImageName(target_name);
+                            } else if (target_name.equals("namecard9") && video_renderers.get(1).texId() != 0) {
                                 video = new ARVideo();
                                 video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
                                 current_video_renderer = video_renderers.get(1);

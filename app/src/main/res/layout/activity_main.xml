@@ -45,14 +45,37 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/InfoButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
+        android:layout_margin="@dimen/fab_margin"
         android:visibility="invisible"
         app:backgroundTint="@android:color/background_dark"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="left|bottom"
         app:srcCompat="@android:drawable/ic_dialog_info" />
+
+
+    <Button
+        android:id="@+id/btnCapture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:text="Capture"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:visibility="invisible"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="bottom|center" />
+
+
+
+
+
+
+
+
+
+
 
 </android.support.design.widget.CoordinatorLayout>
