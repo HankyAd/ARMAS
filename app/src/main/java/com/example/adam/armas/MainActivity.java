@@ -1,61 +1,62 @@
 package com.example.adam.armas;
+
 import android.Manifest;
 import android.annotation.TargetApi;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.content.pm.PackageManager;
-        import android.database.Cursor;
-        import android.opengl.GLSurfaceView;
-        import android.os.Build;
-        import android.os.Bundle;
-        import android.support.annotation.FloatRange;
-        import android.support.annotation.NonNull;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.v7.app.AlertDialog;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
-        import android.util.Log;
-        import android.view.View;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.ViewGroup;
-        import android.view.Window;
-        import android.view.WindowManager;
-        import java.io.*;
-        import java.io.FileReader;
-        import java.io.IOException;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.opengl.GLSurfaceView;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.FloatRange;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
-        import java.util.HashMap;
-        import cn.easyar.*;
+import java.io.*;
+import java.io.FileReader;
+import java.io.IOException;
 
-        import android.animation.Animator;
-        import android.os.Bundle;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.design.widget.Snackbar;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
-        import android.view.View;
-        import android.widget.LinearLayout;
-        import android.widget.RelativeLayout;
+import java.util.HashMap;
+
+import cn.easyar.*;
+
+import android.animation.Animator;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 
-        public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private GLView glView;
     private View vw;
     private MessageAlerter onAlert;
     private String targetName;
     private Boolean asbestosDetected = false;
     private String imageName = null;
+    private DAO dataAccessObject;
 
-    FloatingActionButton  fab1, fab2, fab3, fab4;
+    FloatingActionButton fab1, fab2, fab3, fab4;
     LinearLayout fabLayout1, fabLayout2, fabLayout3;
     View fabBGLayout;
-    boolean isFABOpen=false;
+    boolean isFABOpen = false;
 
-    //DAO dao = new DAO(this);
-
-    public interface MessageAlerter
-    {
+    public interface MessageAlerter {
         void invoke(String s);
     }
 
@@ -63,12 +64,13 @@ import android.annotation.TargetApi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         DAO dao = new DAO(this);
+        dataAccessObject = dao;
         dao.createRecords();
         Cursor asbRow = dao.getAsbestosRow();
         Cursor roomRow = dao.getRoomRow(asbRow);
         Cursor houseRow = dao.getHouseRow(asbRow);
 
-        System.out.println(asbRow.getString(1) + " | " + asbRow.getString(2) + " | " + roomRow.getString(2)+ " | " + houseRow.getString(2));
+        System.out.println(asbRow.getString(1) + " | " + asbRow.getString(2) + " | " + roomRow.getString(2) + " | " + houseRow.getString(2));
 
         String key = "Dvwi44jdfu7RFcq2jN6vFBNUKTHiStKtfoevOz3CzTKGtz4J1tHCu9MtyYorV0sJGJFQs747c7Uu07S39cYooN4sNqBeE7gi8DRg8oZN25VdKdVbK3csqyWPuBNoqmy9FimsvyOU81Bd0LB9XX8Gga13OOp33x1XFtod00m7Wh3xsn8f9VCfsIIucdki8OpnQeuswZNo";
         Engine.initialize(this, key);
@@ -81,19 +83,15 @@ import android.annotation.TargetApi;
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
 
-
         //fab1 = (FloatingActionButton) findViewById(R.id.fab1);
         //fab2= (FloatingActionButton) findViewById(R.id.fab2);
         //fab3 = (FloatingActionButton) findViewById(R.id.fab3);
         //fab4 = (FloatingActionButton) findViewById(R.id.fab4);
 
 
-
-
-
-
         fab.setOnClickListener(new View.OnClickListener() {
             boolean clicked = false;
+
             public void onClick(View view) {
                 if (!clicked) {
                     clicked = true;
@@ -115,7 +113,7 @@ import android.annotation.TargetApi;
             public void onClick(View view) {
                 if (asbestosDetected) {
                     System.out.println("Detected");
-                    Intent intent2 = new Intent(MainActivity.this,InfoActivity.class);
+                    Intent intent2 = new Intent(MainActivity.this, InfoActivity.class);
                     startActivity(intent2);
                 } else {
                     System.out.println("Not Detected");
@@ -123,10 +121,6 @@ import android.annotation.TargetApi;
 
             }
         });
-
-
-
-
 
 
         glView = new GLView(this, this);
@@ -142,57 +136,59 @@ import android.annotation.TargetApi;
             }
         });
     }
-            private void showFABMenu(){
-                isFABOpen=true;
-                fabLayout1.setVisibility(View.VISIBLE);
-                fabLayout2.setVisibility(View.VISIBLE);
-                fabLayout3.setVisibility(View.VISIBLE);
-                fabBGLayout.setVisibility(View.VISIBLE);
 
-                fab4.animate().rotationBy(180);
-                fabLayout1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
-                fabLayout2.animate().translationY(-getResources().getDimension(R.dimen.standard_100));
-                fabLayout3.animate().translationY(-getResources().getDimension(R.dimen.standard_145));
+    private void showFABMenu() {
+        isFABOpen = true;
+        fabLayout1.setVisibility(View.VISIBLE);
+        fabLayout2.setVisibility(View.VISIBLE);
+        fabLayout3.setVisibility(View.VISIBLE);
+        fabBGLayout.setVisibility(View.VISIBLE);
+
+        fab4.animate().rotationBy(180);
+        fabLayout1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
+        fabLayout2.animate().translationY(-getResources().getDimension(R.dimen.standard_100));
+        fabLayout3.animate().translationY(-getResources().getDimension(R.dimen.standard_145));
+    }
+
+    private void closeFABMenu() {
+        isFABOpen = false;
+        fabBGLayout.setVisibility(View.GONE);
+        fab4.animate().rotationBy(-180);
+        fabLayout1.animate().translationY(0);
+        fabLayout2.animate().translationY(0);
+        fabLayout3.animate().translationY(0).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
             }
 
-            private void closeFABMenu(){
-                isFABOpen=false;
-                fabBGLayout.setVisibility(View.GONE);
-                fab4.animate().rotationBy(-180);
-                fabLayout1.animate().translationY(0);
-                fabLayout2.animate().translationY(0);
-                fabLayout3.animate().translationY(0).setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animator) {
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                if (!isFABOpen) {
+                    fabLayout1.setVisibility(View.GONE);
+                    fabLayout2.setVisibility(View.GONE);
+                    fabLayout3.setVisibility(View.GONE);
+                }
 
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-                        if(!isFABOpen){
-                            fabLayout1.setVisibility(View.GONE);
-                            fabLayout2.setVisibility(View.GONE);
-                            fabLayout3.setVisibility(View.GONE);
-                        }
-
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animator) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animator) {
-
-                    }
-                });
             }
-    public void setImageName(String imgName){
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+    }
+
+    public void setImageName(String imgName) {
         imageName = imgName;
     }
 
-    public void setAsbestosTrue(){
+    public void setAsbestosTrue() {
         try {
             runOnUiThread(new Runnable() {
                 @Override
@@ -202,11 +198,12 @@ import android.annotation.TargetApi;
                 }
             });
             asbestosDetected = true;
-        } catch (Exception ex){
+        } catch (Exception ex) {
 
         }
     }
-    public void setAsbestosFalse(){
+
+    public void setAsbestosFalse() {
         try {
             runOnUiThread(new Runnable() {
                 @Override
@@ -216,10 +213,11 @@ import android.annotation.TargetApi;
                 }
             });
             asbestosDetected = false;
-        } catch (Exception ex){
+        } catch (Exception ex) {
 
         }
     }
+
     private interface PermissionCallback {
         void onSuccess();
 
@@ -297,17 +295,16 @@ import android.annotation.TargetApi;
         return super.onOptionsItemSelected(item);
     }
 
+    public DAO getDAO() {
+        return dataAccessObject;
+    }
 
 
     ////untill here
     //Text render code4
 
 
-
 }
-
-
-
 
 
 //  @Override

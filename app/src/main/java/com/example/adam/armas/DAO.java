@@ -20,7 +20,7 @@ import java.io.InputStream;
  * Created by Adam on 09/03/2018.
  */
 
-public class DAO{
+public class DAO {
 
     private DatabaseHelper dbHelper;
 
@@ -29,10 +29,9 @@ public class DAO{
     private Context cont;
 
     /**
-     *
      * @param context
      */
-    public DAO(Context context){
+    public DAO(Context context) {
         dbHelper = new DatabaseHelper(context);
         database = dbHelper.getWritableDatabase();
         cont = context;
@@ -40,7 +39,7 @@ public class DAO{
     }
 
 
-    public void createRecords(){
+    public void createRecords() {
         //insert dummy data into database for table House
         database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('111', 'Somewhere Ave', 'PO1 0AA');");
         database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('112', 'Somewhere Street', 'PO1 0AB');");
@@ -58,10 +57,10 @@ public class DAO{
         String sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image, Room_ID, House_ID) values ('Left window, upperleft side of windowsill', 'image1' , 1, 1);";
         database.execSQL(sql);
 
-        sql="insert into Asbestos (Asbestos_Desc, Asbestos_Image, Room_ID, House_ID) values ('Behind sink bowl', 'image2', 2, 2);";
+        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image, Room_ID, House_ID) values ('Behind sink bowl', 'image2', 2, 2);";
         database.execSQL(sql);
 
-        sql="insert into Asbestos (Asbestos_Desc, Asbestos_Image, Room_ID, House_ID) values ('Underneath Oven', 'image3', 3, 3);";
+        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image, Room_ID, House_ID) values ('Underneath Oven', 'image3', 3, 3);";
         database.execSQL(sql);
 
         sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image, Room_ID, House_ID) values ('Underneath carpet, north side of room', 'image4', 4, 4);";
@@ -71,14 +70,15 @@ public class DAO{
         database.execSQL(sql);
     }
 
-    public Cursor getAsbestosRow(){
+    public Cursor getAsbestosRow() {
         Cursor mCursor = database.rawQuery("select * from Asbestos", null);
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
         return mCursor; // iterate to get each value.
     }
-    public Cursor getRoomRow(Cursor asb){
+
+    public Cursor getRoomRow(Cursor asb) {
         String query = "select * from Room where Room_ID = " + asb.getString(3);
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
@@ -86,7 +86,8 @@ public class DAO{
         }
         return mCursor; // iterate to get each value.
     }
-    public Cursor getHouseRow(Cursor asb){
+
+    public Cursor getHouseRow(Cursor asb) {
         String query = "select * from House where House_ID = " + asb.getString(4);
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
@@ -96,7 +97,7 @@ public class DAO{
     }
 
     public Cursor selectRecords() {
-        Cursor mCursor = database.rawQuery("select * from House",null);
+        Cursor mCursor = database.rawQuery("select * from House", null);
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
@@ -116,6 +117,16 @@ public class DAO{
         }
 
         return bitmap;
+    }
+
+    public Cursor getRoomByID(String id) {
+        String query = "select * from Room where Room_ID = " + id;
+        Cursor mCursor = database.rawQuery(query, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        System.out.println("ROOM NAME IS " + mCursor.getString(1));
+        return mCursor; // iterate to get each value.
     }
 }
 

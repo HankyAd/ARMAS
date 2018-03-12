@@ -8,6 +8,7 @@
 
 package com.example.adam.armas;
 
+import android.database.Cursor;
 import android.opengl.GLES20;
 import android.util.Log;
 
@@ -50,6 +51,7 @@ public class HelloAR
     private int previous_qrcode_index = -1;
     private MessageAlerter onAlert;
     private MainActivity mainActivity;
+    private DAO dao;
 
     public interface MessageAlerter
     {
@@ -60,6 +62,7 @@ public class HelloAR
     {
         trackers = new ArrayList<ImageTracker>();
         mainActivity = mA;
+        dao = mainActivity.getDAO();
     }
 
     private void loadFromImage(ImageTracker tracker, String path)
@@ -342,6 +345,7 @@ public class HelloAR
                 previous_qrcode_index = frame.index();
                 String text = frame.text();
                 if (text != null && !text.equals("")) {
+                    Cursor m = dao.getRoomByID(text);
                     Log.i("HelloAR", "got qrcode: " + text);
                     onAlert.invoke("got qrcode: " + text);
                 }
