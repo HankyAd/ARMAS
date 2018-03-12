@@ -64,11 +64,12 @@ import android.annotation.TargetApi;
     protected void onCreate(Bundle savedInstanceState) {
         DAO dao = new DAO(this);
         dao.createRecords();
-        Cursor c = dao.selectRecords();
-        System.out.println(c.getString(2));
-        //AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        //alertDialog.setMessage(c.getString(2));
-        //alertDialog.show();
+        Cursor asbRow = dao.getAsbestosRow();
+        Cursor roomRow = dao.getRoomRow(asbRow);
+        Cursor houseRow = dao.getHouseRow(asbRow);
+
+        System.out.println(asbRow.getString(1) + " | " + asbRow.getString(2) + " | " + roomRow.getString(2)+ " | " + houseRow.getString(2));
+
         String key = "Dvwi44jdfu7RFcq2jN6vFBNUKTHiStKtfoevOz3CzTKGtz4J1tHCu9MtyYorV0sJGJFQs747c7Uu07S39cYooN4sNqBeE7gi8DRg8oZN25VdKdVbK3csqyWPuBNoqmy9FimsvyOU81Bd0LB9XX8Gga13OOp33x1XFtod00m7Wh3xsn8f9VCfsIIucdki8OpnQeuswZNo";
         Engine.initialize(this, key);
         super.onCreate(savedInstanceState);

@@ -71,8 +71,24 @@ public class DAO{
         database.execSQL(sql);
     }
 
-    public Cursor getAllSiteData(){
-        Cursor mCursor = database.rawQuery("select * from Asbestos",null);
+    public Cursor getAsbestosRow(){
+        Cursor mCursor = database.rawQuery("select * from Asbestos", null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor; // iterate to get each value.
+    }
+    public Cursor getRoomRow(Cursor asb){
+        String query = "select * from Room where Room_ID = " + asb.getString(3);
+        Cursor mCursor = database.rawQuery(query, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor; // iterate to get each value.
+    }
+    public Cursor getHouseRow(Cursor asb){
+        String query = "select * from House where House_ID = " + asb.getString(4);
+        Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
@@ -103,13 +119,3 @@ public class DAO{
     }
 }
 
-
-
-
-/*database.execSQL("create table House (House_ID integer primary key not null, House_Number text, House_Street text, House_Postcode);");
-        System.out.println("House Created");
-        database.execSQL("create table Room (Room_ID integer primary key not null, Room_Name text, FOREIGN KEY(House_ID) REFERENCES House(House_ID) );");
-        System.out.println("Room Created");
-        database.execSQL("create table Asbestos(Asbestos_ID integer primary key not null, Asbestos_Desc text, Asbestos_Image blob, FOREIGN KEY(House_ID) REFERENCES House(House_ID), FOREIGN KEY(Room_ID) REFERENCES Room(Room_ID));");
-        System.out.println("Asbestos Created");
- */
