@@ -62,8 +62,10 @@ import android.annotation.TargetApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //dao.createRecords();
-        //Cursor c = dao.selectRecords();
+        DAO dao = new DAO(this);
+        dao.createRecords();
+        Cursor c = dao.selectRecords();
+        System.out.println(c.getString(2));
         //AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         //alertDialog.setMessage(c.getString(2));
         //alertDialog.show();
@@ -293,6 +295,7 @@ import android.annotation.TargetApi;
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
     ////untill here

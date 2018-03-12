@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 2;
 
     // Database creation sql statement
-    private static final String DATABASE_CREATE = "create table House (House_ID integer primary key not null, House_Number text, House_Street text, House_Postcode); create table Room (Room_ID integer primary key not null, Room_Name text, FOREIGN KEY(House_ID) REFERENCES House(House_ID) ); create table Asbestos(Asbestos_ID integer primary key not null, Asbestos_Desc text, Asbestos_Photo blob, FOREIGN KEY(House_ID) REFERENCES House(House_ID), FOREIGN KEY(Room_ID) REFERENCES Room(Room_ID));";
+    private static final String DATABASE_CREATE = "create table House (House_ID integer primary key not null, House_Number text, House_Street text, House_Postcode); create table Room (Room_ID integer primary key not null, Room_Name text, FOREIGN KEY(House_ID) REFERENCES House(House_ID) ); create table Asbestos(Asbestos_ID integer primary key not null, Asbestos_Desc text, Asbestos_Image blob, FOREIGN KEY(House_ID) REFERENCES House(House_ID), FOREIGN KEY(Room_ID) REFERENCES Room(Room_ID));";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -27,7 +27,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Method is called during creation of the database
 
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL(DATABASE_CREATE);
+        database.execSQL("create table House (House_ID integer primary key not null, House_Number text, House_Street text, House_Postcode);");
+        database.execSQL("create table Room (Room_ID integer primary key not null, Room_Name text, House_ID integer, FOREIGN KEY(House_ID) REFERENCES House(House_ID) );");
+        database.execSQL("create table Asbestos(Asbestos_ID integer primary key not null, Asbestos_Desc text, Asbestos_Image_Name text, House_ID integer, Room_ID integer, FOREIGN KEY(House_ID) REFERENCES House(House_ID), FOREIGN KEY(Room_ID) REFERENCES Room(Room_ID));");
     }
 
     // Method is called during an upgrade of the database,
