@@ -1,12 +1,15 @@
 package com.example.adam.armas;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.icu.text.IDNA;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +30,21 @@ public class InfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_info);
+        FloatingActionButton backFab = (FloatingActionButton) findViewById(R.id.backFab);
+
+        backFab.setOnClickListener(new View.OnClickListener() {
+
+
+            public void onClick(View view) {
+                Intent intent3 = new Intent(InfoActivity.this, MainActivity.class);
+                startActivity(intent3);
+            }
+
+        });
+
+
 
 
         String s = getIntent().getStringExtra("IMAGE_NAME");
