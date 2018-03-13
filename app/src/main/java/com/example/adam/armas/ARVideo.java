@@ -58,6 +58,8 @@ public class ARVideo
             }
         });
     }
+
+
     public void openStreamingVideo(String url, int texid)
     {
         this.path = url;
