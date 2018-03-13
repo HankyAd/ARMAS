@@ -54,19 +54,19 @@ public class DAO {
         database.execSQL("insert into Room (Room_Name, House_ID) values ('Lounge', 5);");
         //insert dummy data into database for Asbestos
 
-        String sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image, Room_ID, House_ID) values ('Left window, upperleft side of windowsill', 'image1' , 1, 1);";
+        String sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Left window, upperleft side of windowsill', 'image1' , 1, 1);";
         database.execSQL(sql);
 
-        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image, Room_ID, House_ID) values ('Behind sink bowl', 'image2', 2, 2);";
+        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Behind sink bowl', 'image2', 2, 2);";
         database.execSQL(sql);
 
-        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image, Room_ID, House_ID) values ('Underneath Oven', 'image3', 3, 3);";
+        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Underneath Oven', 'image3', 3, 3);";
         database.execSQL(sql);
 
-        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image, Room_ID, House_ID) values ('Underneath carpet, north side of room', 'image4', 4, 4);";
+        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Underneath carpet, north side of room', 'image4', 4, 4);";
         database.execSQL(sql);
 
-        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image, Room_ID, House_ID) values ('Above main entrance doorway', 'image5', 5, 5);";
+        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Above main entrance doorway', 'image5', 5, 5);";
         database.execSQL(sql);
     }
 
