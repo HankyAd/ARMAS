@@ -246,9 +246,6 @@ public class HelloAR
 
     public void render()
     {
-
-
-
         GLES20.glClearColor(1.f, 1.f, 1.f, 1.f);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
@@ -335,19 +332,14 @@ public class HelloAR
                                 current_video_renderer = video_renderers.get(2);
                             }
 
-
                         }
-
 
                         if (video != null) {
                             video.onFound();
                             tracked_target = id;
                             active_target = id;
                         }
-
                     }
-
-
                     ImageTarget imagetarget = target instanceof ImageTarget ? (ImageTarget)(target) : null;
                     if (imagetarget != null) {
                         if (current_video_renderer != null) {
