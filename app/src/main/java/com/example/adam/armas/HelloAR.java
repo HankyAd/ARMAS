@@ -311,6 +311,11 @@ public class HelloAR
                                 video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
                                 current_video_renderer = video_renderers.get(1);
                                 mainActivity.setImageName(target_name);
+                            } else if (target_name.equals("demo5") && video_renderers.get(1).texId() != 0) {
+                                video = new ARVideo();
+                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
+                                current_video_renderer = video_renderers.get(1);
+                                mainActivity.setImageName(target_name);
                             } else if (target_name.equals("demo6") && video_renderers.get(1).texId() != 0) {
                                 video = new ARVideo();
                                 video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());

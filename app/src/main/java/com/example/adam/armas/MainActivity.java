@@ -43,7 +43,7 @@ import android.widget.*;
 import android.widget.RelativeLayout;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private GLView glView;
     private View vw;
     private MessageAlerter onAlert;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private Boolean asbestosDetected = false;
     private String imageName = null;
     private DAO dataAccessObject;
+
 
     FloatingActionButton fab1, fab2, fab3, fab4;
     LinearLayout fabLayout1, fabLayout2, fabLayout3;
@@ -68,7 +69,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         DAO dao = new DAO(this);
         dataAccessObject = dao;
-        dao.createRecords();
+        System.out.println(dataAccessObject.getAsbIDByImageName("demo1"));
+
+        GlobalClass g = (GlobalClass)this.getApplication();
+        g.setDAO(dataAccessObject);
         Cursor asbRow = dao.getAsbestosRow();
         Cursor roomRow = dao.getRoomRow(asbRow);
         Cursor houseRow = dao.getHouseRow(asbRow);
@@ -101,9 +105,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!clicked) {
                     clicked = true;
-
                     ((ViewGroup) findViewById(R.id.preview)).addView(glView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    //InfoButton.setVisibility(view.VISIBLE);
                     glView.onResume();
 
 
@@ -111,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
                     clicked = false;
                     glView.onPause();
                     ((ViewGroup) findViewById(R.id.preview)).removeAllViews();
-                    //InfoButton.setVisibility(view.INVISIBLE);
                 }
 
             }
@@ -121,11 +122,10 @@ public class MainActivity extends AppCompatActivity {
         InfoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (asbestosDetected) {
-                    System.out.println("Detected");
+                    System.out.println(imageName + " main activity");
                     Intent intent2 = new Intent(MainActivity.this, InfoActivity.class);
+                    intent2.putExtra("IMAGE_NAME", imageName);
                     startActivity(intent2);
-                } else {
-                    System.out.println("Not Detected");
                 }
 
             }
@@ -149,6 +149,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setImageName(String imgName) {
         imageName = imgName;
+    }
+
+    public String getImageName(){
+        return imageName;
     }
 
     public void setAsbestosTrue() {
