@@ -12,6 +12,18 @@
     {
       "image" : "sightplus/argame03.jpg",
       "name" : "argame03"
+    },
+    {
+      "image" : "namecard7.jpg",
+      "name" : "argame01"
+    },
+    {
+      "image" : "namecard8.jpg",
+      "name" : "argame02"
+    },
+    {
+      "image" : "namecard9.jpg",
+      "name" : "argame03"
     }
   ]
 }

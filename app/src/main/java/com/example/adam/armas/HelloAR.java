@@ -134,6 +134,7 @@ public class HelloAR
         loadFromJsonFile(tracker2, "targets.json", "argame");
         loadFromJsonFile(tracker1, "targets.json", "idback");
         loadAllFromJsonFile(tracker2, "targets2.json");
+        loadAllFromJsonFile(tracker1, "targets3.json");
         loadFromImage(tracker1, "namecard.jpg");
         trackers.add(tracker1);
         trackers.add(tracker2);
@@ -290,22 +291,37 @@ public class HelloAR
                                 video = new ARVideo();
                                 video.openVideoFile("video.mp4", video_renderers.get(0).texId());
                                 current_video_renderer = video_renderers.get(0);
-                            } else if (target_name.equals("namecard") && video_renderers.get(1).texId() != 0) {
+                            } else if (target_name.equals("demo1") && video_renderers.get(1).texId() != 0) {
                                 video = new ARVideo();
                                 video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
                                 current_video_renderer = video_renderers.get(1);
                                 mainActivity.setImageName(target_name);
-                            } else if (target_name.equals("namecard7") && video_renderers.get(1).texId() != 0) {
+                            } else if (target_name.equals("demo2") && video_renderers.get(1).texId() != 0) {
                                 video = new ARVideo();
                                 video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
                                 current_video_renderer = video_renderers.get(1);
                                 mainActivity.setImageName(target_name);
-                            } else if (target_name.equals("namecard8") && video_renderers.get(1).texId() != 0) {
+                            } else if (target_name.equals("demo3") && video_renderers.get(1).texId() != 0) {
                                 video = new ARVideo();
                                 video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
                                 current_video_renderer = video_renderers.get(1);
                                 mainActivity.setImageName(target_name);
-                            } else if (target_name.equals("namecard9") && video_renderers.get(1).texId() != 0) {
+                            } else if (target_name.equals("demo4") && video_renderers.get(1).texId() != 0) {
+                                video = new ARVideo();
+                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
+                                current_video_renderer = video_renderers.get(1);
+                                mainActivity.setImageName(target_name);
+                            } else if (target_name.equals("demo6") && video_renderers.get(1).texId() != 0) {
+                                video = new ARVideo();
+                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
+                                current_video_renderer = video_renderers.get(1);
+                                mainActivity.setImageName(target_name);
+                            } else if (target_name.equals("demo7") && video_renderers.get(1).texId() != 0) {
+                                video = new ARVideo();
+                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
+                                current_video_renderer = video_renderers.get(1);
+                                mainActivity.setImageName(target_name);
+                            } else if (target_name.equals("demo8") && video_renderers.get(1).texId() != 0) {
                                 video = new ARVideo();
                                 video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
                                 current_video_renderer = video_renderers.get(1);
