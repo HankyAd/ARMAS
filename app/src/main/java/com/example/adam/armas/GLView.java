@@ -51,6 +51,7 @@ public class GLView extends GLSurfaceView
             public void onSurfaceCreated(GL10 gl, EGLConfig config) {
                 synchronized (helloAR) {
                     helloAR.initGL();
+
                 }
             }
 

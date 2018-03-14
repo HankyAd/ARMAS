@@ -22,6 +22,7 @@ import static android.view.View.VISIBLE;
 public class InfoActivity extends AppCompatActivity {
     private DAO dao;
     private String imageName = "";
+    private MainActivity mainActivity;
 
     public InfoActivity() {
         super();
@@ -32,14 +33,14 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_info);
-        FloatingActionButton backFab = (FloatingActionButton) findViewById(R.id.backFab);
+        final FloatingActionButton backFab = (FloatingActionButton) findViewById(R.id.backFab);
 
         backFab.setOnClickListener(new View.OnClickListener() {
 
 
             public void onClick(View view) {
-                Intent intent3 = new Intent(InfoActivity.this, MainActivity.class);
-                startActivity(intent3);
+                finish();
+
             }
 
         });

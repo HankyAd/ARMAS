@@ -69,13 +69,12 @@
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|center" />
 
-
-
-
-
-
-
-
+    <com.felipecsl.gifimageview.library.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 
