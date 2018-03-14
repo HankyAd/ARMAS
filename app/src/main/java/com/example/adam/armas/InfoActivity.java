@@ -49,6 +49,7 @@ public class InfoActivity extends AppCompatActivity {
 
         String s = getIntent().getStringExtra("IMAGE_NAME");
         imageName = s;
+        //comment
         GlobalClass g = (GlobalClass)this.getApplication();
         dao = g.getDAO();
 
