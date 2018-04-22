@@ -322,10 +322,13 @@ public class HelloAR
             if (frame.index() != previous_qrcode_index) {
                 previous_qrcode_index = frame.index();
                 String text = frame.text();
-                if (text != null && !text.equals("")) {
+                String regex = "[0-9]+";
+                if (text != null && !text.equals("") && text.matches(regex)) {
                     Cursor m = dao.getRoomByID(text);
-                    Log.i("HelloAR", "got qrcode: " + text);
-                    onAlert.invoke("got qrcode: " + text);
+                    if(m.getString(2) != null) {
+                        Log.i("HelloAR", "got qrcode: " + text);
+                        onAlert.invoke("got qrcode: " + text);
+                    }
                 }
             }
         }

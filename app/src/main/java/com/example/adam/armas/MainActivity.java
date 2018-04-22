@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity{
         InfoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (asbestosDetected) {
-                    System.out.println(imageName + " main activity");
                     Intent intent2 = new Intent(MainActivity.this, InfoActivity.class);
                     intent2.putExtra("IMAGE_NAME", imageName);
                     startActivity(intent2);
