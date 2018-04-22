@@ -322,6 +322,7 @@ public class HelloAR
             if (frame.index() != previous_qrcode_index) {
                 previous_qrcode_index = frame.index();
                 String text = frame.text();
+                //regex code
                 String regex = "[0-9]+";
                 if (text != null && !text.equals("") && text.matches(regex)) {
                     Cursor m = dao.getRoomByID(text);
