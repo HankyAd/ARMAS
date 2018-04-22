@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -374,21 +375,21 @@ public class HelloAR
             mCursor.moveToNext();
         }while(!mCursor.isAfterLast());
 
-        try {
-            Writer output = null;
-            // Get the directory for the user's public pictures directory.
-            File file = new File(Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOCUMENTS), "targets.json");
-            if (!file.mkdirs()) {
-
-            }
-            output = new BufferedWriter(new FileWriter(file));
-            output.write(image.toString());
-            output.close();
-            Toast.makeText(getApplicationContext(), "Composition saved", Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            System.out.println(e);
+        File mFolder = new File(Environment.DIRECTORY_DOCUMENTS + "/armas");
+        File jsonfile = new File(mFolder.getAbsolutePath() + "/targets.json");
+        if (!mFolder.exists()) {
+            mFolder.mkdir();
         }
+        if (!jsonfile.exists()) {
+            //jsonfile.createNewFile();
+        }
+        FileOutputStream fos = null;
+        /*try {
+            //fos = new FileOutputStream(jsonFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
 
     }
 }
