@@ -133,13 +133,17 @@ public class DAO {
     }
 
     public Cursor getRoomByID(String id) {
-        String query = "select * from Room where Room_ID = " + id;
-        Cursor mCursor = database.rawQuery(query, null);
-        if (mCursor != null) {
-            mCursor.moveToFirst();
+        try {
+            String query = "select * from Room where Room_ID = " + id;
+            Cursor mCursor = database.rawQuery(query, null);
+            if (mCursor != null) {
+                mCursor.moveToFirst();
+            }
+            return mCursor; // iterate to get each value.
+        }catch (Exception ex){
+            System.out.println("Error");
         }
-        System.out.println("ROOM NAME IS " + mCursor.getString(1));
-        return mCursor; // iterate to get each value.
+        return null;
     }
 
     public Cursor getRoomByAsbestos(int id){
@@ -174,6 +178,20 @@ public class DAO {
         Cursor mCursor = database.rawQuery(query, null);
         mCursor.moveToFirst();
         return mCursor.getInt(0);
+    }
+
+    public Cursor getAsbestosByRoomID(String id){
+        try {
+            String query = "select * from Asbestos where Room_ID = " + id;
+            Cursor mCursor = database.rawQuery(query, null);
+            if (mCursor != null) {
+                mCursor.moveToFirst();
+            }
+            return mCursor; // iterate to get each value.
+        }catch (Exception ex){
+            System.out.println("Error");
+        }
+        return null;
     }
 
 }

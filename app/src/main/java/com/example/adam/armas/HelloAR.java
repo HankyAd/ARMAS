@@ -12,6 +12,8 @@ import android.database.Cursor;
 import android.opengl.GLES20;
 import android.util.Log;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import cn.easyar.CameraCalibration;
@@ -31,6 +33,9 @@ import cn.easyar.TargetInstance;
 import cn.easyar.TargetStatus;
 import cn.easyar.Vec2I;
 import cn.easyar.Vec4I;
+
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 public class HelloAR
 {
@@ -326,7 +331,8 @@ public class HelloAR
                 String regex = "[0-9]+";
                 if (text != null && !text.equals("") && text.matches(regex)) {
                     Cursor m = dao.getRoomByID(text);
-                    if(m.getString(2) != null) {
+                    if(m != null) {
+                        dao.getAsbestosByRoomID(text);
                         Log.i("HelloAR", "got qrcode: " + text);
                         onAlert.invoke("got qrcode: " + text);
                     }
@@ -337,4 +343,31 @@ public class HelloAR
             frame.dispose();
         }
     }
+
+    public void updateJSON(Cursor mCursor){
+        ImageJson[] img = new ImageJson[mCursor.getCount()];
+        int i = 1;
+        do{
+            img[i].image = "demo/" + mCursor.getString(2) + ".jpg";
+            img[i].name = mCursor.getString(2);
+            i++;
+            mCursor.moveToNext();
+        }while(!mCursor.isLast());
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+
+            // Writing to a file
+            //mapper.writeValue(new File("targets.jpg"), img);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class ImageJson{
+    String image;
+    String name;
 }
