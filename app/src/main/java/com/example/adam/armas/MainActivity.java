@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity{
                     executed = true;
                     callback.onFailure();
                 }
-            }//thihihidhidhidh
+            }//thihihidhi
             if (!executed) {
                 callback.onSuccess();
             }
