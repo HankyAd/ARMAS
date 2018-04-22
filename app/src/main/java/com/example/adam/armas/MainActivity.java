@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -225,6 +226,25 @@ public class MainActivity extends AppCompatActivity{
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+ 
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    /* Checks if external storage is available to at least read */
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
     }
 
     @Override
