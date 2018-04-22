@@ -99,16 +99,14 @@ public class MainActivity extends AppCompatActivity{
         //fab4 = (FloatingActionButton) findViewById(R.id.fab4);
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() { //Camera button
             boolean clicked = false;
 
-            public void onClick(View view) {
+            public void onClick(View view) {   // when the camera button is clicked
                 if (!clicked) {
                     clicked = true;
-                    ((ViewGroup) findViewById(R.id.preview)).addView(glView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    ((ViewGroup) findViewById(R.id.preview)).addView(glView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)); // Creates a new View
                     glView.onResume();
-
-
                 } else {
                     clicked = false;
                     glView.onPause();

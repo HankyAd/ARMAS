@@ -287,54 +287,11 @@ public class HelloAR
                     if (tracked_target == 0) {
                         if (video == null && video_renderers.size() > 0) {
                             String target_name = target.name();
-                            if (target_name.equals("argame") && video_renderers.get(0).texId() != 0) {
-                                video = new ARVideo();
-                                video.openVideoFile("video.mp4", video_renderers.get(0).texId());
-                                current_video_renderer = video_renderers.get(0);
-                            } else if (target_name.equals("demo1") && video_renderers.get(1).texId() != 0) {
+                            if  (video_renderers.get(1).texId() != 0) {
                                 video = new ARVideo();
                                 video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
                                 current_video_renderer = video_renderers.get(1);
                                 mainActivity.setImageName(target_name);
-                            } else if (target_name.equals("demo2") && video_renderers.get(1).texId() != 0) {
-                                video = new ARVideo();
-                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
-                                current_video_renderer = video_renderers.get(1);
-                                mainActivity.setImageName(target_name);
-                            } else if (target_name.equals("demo3") && video_renderers.get(1).texId() != 0) {
-                                video = new ARVideo();
-                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
-                                current_video_renderer = video_renderers.get(1);
-                                mainActivity.setImageName(target_name);
-                            } else if (target_name.equals("demo4") && video_renderers.get(1).texId() != 0) {
-                                video = new ARVideo();
-                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
-                                current_video_renderer = video_renderers.get(1);
-                                mainActivity.setImageName(target_name);
-                            } else if (target_name.equals("demo5") && video_renderers.get(1).texId() != 0) {
-                                video = new ARVideo();
-                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
-                                current_video_renderer = video_renderers.get(1);
-                                mainActivity.setImageName(target_name);
-                            } else if (target_name.equals("demo6") && video_renderers.get(1).texId() != 0) {
-                                video = new ARVideo();
-                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
-                                current_video_renderer = video_renderers.get(1);
-                                mainActivity.setImageName(target_name);
-                            } else if (target_name.equals("demo7") && video_renderers.get(1).texId() != 0) {
-                                video = new ARVideo();
-                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
-                                current_video_renderer = video_renderers.get(1);
-                                mainActivity.setImageName(target_name);
-                            } else if (target_name.equals("demo8") && video_renderers.get(1).texId() != 0) {
-                                video = new ARVideo();
-                                video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
-                                current_video_renderer = video_renderers.get(1);
-                                mainActivity.setImageName(target_name);
-                            } else if (target_name.equals("idback") && video_renderers.get(2).texId() != 0) {
-                                video = new ARVideo();
-                                video.openStreamingVideo("https://sightpvideo-cdn.sightp.com/sdkvideo/EasyARSDKShow201520.mp4", video_renderers.get(2).texId());
-                                current_video_renderer = video_renderers.get(2);
                             }
 
                         }
