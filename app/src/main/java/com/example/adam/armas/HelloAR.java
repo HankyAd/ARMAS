@@ -10,10 +10,15 @@ package com.example.adam.armas;
 
 import android.database.Cursor;
 import android.opengl.GLES20;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import cn.easyar.CameraCalibration;
@@ -36,6 +41,11 @@ import cn.easyar.Vec4I;
 
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static cn.easyar.engine.EasyAR.getApplicationContext;
 
 public class HelloAR
 {
@@ -332,7 +342,9 @@ public class HelloAR
                 if (text != null && !text.equals("") && text.matches(regex)) {
                     Cursor m = dao.getRoomByID(text);
                     if(m != null) {
-                        dao.getAsbestosByRoomID(text);
+                        Cursor n = dao.getAsbestosByRoomID(text);
+                        n.moveToFirst();
+                        updateJSON(n);
                         Log.i("HelloAR", "got qrcode: " + text);
                         onAlert.invoke("got qrcode: " + text);
                     }
@@ -345,29 +357,51 @@ public class HelloAR
     }
 
     public void updateJSON(Cursor mCursor){
-        ImageJson[] img = new ImageJson[mCursor.getCount()];
         int i = 1;
+        int count = mCursor.getCount();
+        img[] im = new img[count];
+        System.out.println("SAIFSAKDJBSAPDKJSH " + count);
+        JSONObject image = new JSONObject();
         do{
-            img[i].image = "demo/" + mCursor.getString(2) + ".jpg";
-            img[i].name = mCursor.getString(2);
+            System.out.println("ssdksjdksjdksjdksjdksjdksjdksjdksjdks  "+mCursor.getString(2));
+            try {
+                image.put("image", "demo/");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             i++;
             mCursor.moveToNext();
-        }while(!mCursor.isLast());
-
-        ObjectMapper mapper = new ObjectMapper();
+        }while(!mCursor.isAfterLast());
 
         try {
+            Writer output = null;
+            // Get the directory for the user's public pictures directory.
+            File file = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DOCUMENTS), "targets.json");
+            if (!file.mkdirs()) {
 
-            // Writing to a file
-            //mapper.writeValue(new File("targets.jpg"), img);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            }
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(image.toString());
+            output.close();
+            Toast.makeText(getApplicationContext(), "Composition saved", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            System.out.println(e);
         }
+
     }
 }
 
-class ImageJson{
-    String image;
-    String name;
+class img{
+    public String image;
+    public String name;
+
+    public void setImage(String img){
+        image = img;
+    }
+
+    public void setName(String nm){
+        name = nm;
+    }
 }
