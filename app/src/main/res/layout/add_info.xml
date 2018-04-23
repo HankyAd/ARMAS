@@ -29,17 +29,18 @@
         android:layout_marginTop="211dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text = "@string/add_description"
+        android:hint = "@string/add_description"
         tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
+
         android:layout_below="@+id/editText4"
         android:ems="10"
         android:inputType="number"
-        android:text="@string/add_room_number"
+        android:hint="@string/add_room_number"
         tools:ignore="LabelFor" />
 
     <EditText
@@ -49,7 +50,7 @@
         android:layout_below="@+id/editText5"
         android:ems="10"
         android:inputType="number"
-        android:text="@string/add_house_number"
+        android:hint="@string/add_house_number"
         tools:ignore="LabelFor" />
 
     <EditText
@@ -59,7 +60,7 @@
         android:layout_below="@+id/editText6"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/add_house_street"
+        android:hint="@string/add_house_street"
         tools:ignore="LabelFor" />
 
     <EditText
@@ -69,7 +70,7 @@
         android:layout_below="@+id/editText"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/add_house_poscode"
+        android:hint="@string/add_house_poscode"
         tools:ignore="LabelFor" />
 
 
@@ -98,6 +99,14 @@
         app:backgroundTint="@color/colorPrimaryDark"
         app:srcCompat="@android:drawable/ic_menu_delete"
         android:focusable="true" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Add/Change Photo" />
 
 
 </RelativeLayout>
