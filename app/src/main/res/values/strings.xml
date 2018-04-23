@@ -1,4 +1,21 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ARMAS</string>
     <string name="action_settings">Settings</string>
+    <string name="image">image</string>
+    <string name="description">Description:</string>
+    <string name="room_name">Room name:</string>
+    <string name="house_number">House number:</string>
+    <string name="postcode">Postcode:</string>
+    <string name="house_street">House Street:</string>
+    <string name="edit_room_number">Edit Room Number</string>
+    <string name="edit_house_number">Edit House Number</string>
+    <string name="edit_house_street">Edit House Street</string>
+    <string name="edit_house_poscode">Edit House Poscode</string>
+    <string name="edit_description">Edit Description</string>
+    <string name="todo">TODO</string>
+    <string name="add_house_number">Add House Number</string>
+    <string name="add_house_street">Add House Street</string>
+    <string name="add_house_poscode">Add House Poscode</string>
+    <string name="add_room_number">Add Room Number</string>
+    <string name="add_description">Add Description</string>
 </resources>

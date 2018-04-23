@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="0dp"
+            android:layout_height="192dp"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/screen_background_light"
+            android:contentDescription="@string/todo" />
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="211dp"
+        android:ems="10"
+        android:text="@string/edit_description"
+        android:inputType="textPersonName"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/editText4"
+        android:ems="10"
+        android:inputType="number"
+        android:text="@string/edit_room_number"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText5"
+        android:ems="10"
+        android:inputType="number"
+        android:text="@string/edit_house_number"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/editText6"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/edit_house_street"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/editText6"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/editText"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/edit_house_poscode"
+        tools:ignore="LabelFor" />
+
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:elevation="0dp"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        android:focusable="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:srcCompat="@android:drawable/ic_menu_delete"
+        android:focusable="true" />
+
+
+</RelativeLayout>

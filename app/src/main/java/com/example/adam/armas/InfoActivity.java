@@ -1,5 +1,6 @@
 package com.example.adam.armas;
-
+import android.Manifest;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
@@ -8,39 +9,37 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.app.Activity;
 import java.io.IOException;
 import java.io.InputStream;
 
 import static android.view.View.VISIBLE;
 
-public class InfoActivity extends AppCompatActivity {
+public class InfoActivity extends Activity {
     private DAO dao;
     private String imageName = "";
     private MainActivity mainActivity;
 
-    public InfoActivity() {
-        super();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_info);
-        final FloatingActionButton backFab = (FloatingActionButton) findViewById(R.id.backFab);
+        FloatingActionButton backFab = (FloatingActionButton) findViewById(R.id.backFabb);
+        FloatingActionButton editInfo = (FloatingActionButton) findViewById(R.id.editInfo);
 
         backFab.setOnClickListener(new View.OnClickListener() {
-
-
             public void onClick(View view) {
-                finish();
-
+                    finish();
             }
 
         });
 
-
+        editInfo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), editInfo.class));
+            }
+        });
 
 
         String s = getIntent().getStringExtra("IMAGE_NAME");
@@ -50,7 +49,7 @@ public class InfoActivity extends AppCompatActivity {
         dao = g.getDAO();
 
 
-        setContentView(R.layout.activity_info);
+
 
         int asbID = dao.getAsbIDByImageName(imageName);
         Cursor room = dao.getRoomByID(asbID);

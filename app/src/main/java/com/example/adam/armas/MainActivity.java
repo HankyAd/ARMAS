@@ -1,5 +1,6 @@
 package com.example.adam.armas;
 
+import android.app.Activity;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity{
         DAO dao = new DAO(this);
         dataAccessObject = dao;
         System.out.println(dataAccessObject.getAsbIDByImageName("demo1"));
-
+        setContentView(R.layout.activity_welcome);
         GlobalClass g = (GlobalClass)this.getApplication();
         g.setDAO(dataAccessObject);
 
@@ -94,9 +95,10 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-
+        final Button AddButton = (Button) findViewById(R.id.button3);
         final FloatingActionButton InfoButton = (FloatingActionButton) findViewById(R.id.InfoButton);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
 
 
         //fab1 = (FloatingActionButton) findViewById(R.id.fab1);
@@ -113,10 +115,13 @@ public class MainActivity extends AppCompatActivity{
                     clicked = true;
                     ((ViewGroup) findViewById(R.id.preview)).addView(glView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)); // Creates a new View
                     glView.onResume();
+                    AddButton.setVisibility(findViewById(R.id.button3).INVISIBLE);
+
                 } else {
                     clicked = false;
                     glView.onPause();
                     ((ViewGroup) findViewById(R.id.preview)).removeAllViews();
+                    AddButton.setVisibility(findViewById(R.id.button3).VISIBLE);
                 }
 
             }
@@ -133,6 +138,18 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
+
+        AddButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                    Intent intent3 = new Intent(MainActivity.this, addInfo.class);
+                    startActivity(intent3);
+
+
+            }
+        });
+
+
 
 
         glView = new GLView(this, this);
