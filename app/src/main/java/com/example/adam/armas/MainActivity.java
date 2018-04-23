@@ -44,6 +44,8 @@ import android.webkit.WebView;
 import android.widget.*;
 import android.widget.RelativeLayout;
 
+import static cn.easyar.engine.EasyAR.getApplicationContext;
+
 
 public class MainActivity extends AppCompatActivity{
     private GLView glView;
@@ -80,7 +82,6 @@ public class MainActivity extends AppCompatActivity{
         requestPermission();
         DAO dao = new DAO(this);
         dataAccessObject = dao;
-        System.out.println(dataAccessObject.getAsbIDByImageName("demo1"));
 
         GlobalClass g = (GlobalClass)this.getApplication();
         g.setDAO(dataAccessObject);
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        dao.createDirIfNotExists();
     }
 
 
