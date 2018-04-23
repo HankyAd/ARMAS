@@ -69,6 +69,7 @@ public class HelloAR
     private MessageAlerter onAlert;
     private MainActivity mainActivity;
     private DAO dao;
+    private ImageTracker tracker1 = new ImageTracker();
 
     public interface MessageAlerter
     {
@@ -142,19 +143,6 @@ public class HelloAR
         camera.setSize(new Vec2I(1280, 720));
 
         if (!status) { return status; }
-        ImageTracker tracker1 = new ImageTracker();
-        ImageTracker tracker2 = new ImageTracker();
-        tracker1.attachStreamer(streamer);
-        tracker2.attachStreamer(streamer);
-        tracker1.setSimultaneousNum(1);
-        tracker2.setSimultaneousNum(2);
-        loadFromJsonFile(tracker2, "targets.json", "argame");
-        loadFromJsonFile(tracker1, "targets.json", "idback");
-        loadAllFromJsonFile(tracker2, "targets2.json");
-        loadAllFromJsonFile(tracker1, "targets3.json");
-        loadFromImage(tracker1, "namecard.jpg");
-        trackers.add(tracker1);
-        trackers.add(tracker2);
 
         return status;
     }
@@ -348,8 +336,23 @@ public class HelloAR
                         n.moveToFirst();
                         System.out.println("AFAFAFAFAFAFAF");
                         updateJSON(n);
+
+                        tracker1.stop();
+
+                        tracker1 = new ImageTracker();
+                        tracker1.attachStreamer(streamer);
+                        tracker1.setSimultaneousNum(1);
+                        System.out.println(Environment.getExternalStorageDirectory() + "armas/targets.json");
+                        loadAllFromJsonFile(tracker1,getApplicationContext().getExternalFilesDir(null).getAbsolutePath() + "/armas/targets.json");
+                        trackers.add(tracker1);
+                        tracker1.start();
                         Log.i("HelloAR", "got qrcode: " + text);
                         onAlert.invoke("got qrcode: " + text);
+
+
+
+
+
                     }
                 }
             }
@@ -360,15 +363,24 @@ public class HelloAR
     }
 
     public void updateJSON(Cursor mCursor){
-        int i = 1;
+
+        int i = 0;
         int count = mCursor.getCount();
-        img[] im = new img[count];
+        String[] names = new String[count];
+        mCursor.moveToFirst();
         System.out.println("SAIFSAKDJBSAPDKJSH " + count);
-        JSONObject image = new JSONObject();
+        JSONObject images = new JSONObject();
+        JSONArray comb = new JSONArray();
         do{
+
             System.out.println("ssdksjdksjdksjdksjdksjdksjdksjdksjdks  "+mCursor.getString(2));
+            names[i] = mCursor.getString(2);
+            JSONObject image = new JSONObject();
             try {
-                image.put("image", "demo" + mCursor.getString(2));
+                image.put("image", "/storage/emulated/0/Android/data/com.example.adam.armas/files/image/" + names[i] + ".jpg");
+                image.put("name" , names[i]);
+
+                comb.put(image);
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 System.out.println("IMAGE PUT ERROR");
@@ -377,31 +389,30 @@ public class HelloAR
             mCursor.moveToNext();
         }while(!mCursor.isAfterLast());
 
-        System.out.println(image.toString());
+        try{
+            images.accumulate("images", comb);
+        }catch (JSONException gf){
+
+        }
+
+        //JSONObject  jsonObject = image.makeJSONObject("image", "name");
+        //MyCompositionsListActivity.buildList();
 
         File mFolder = new File(getApplicationContext().getExternalFilesDir(null).getAbsolutePath().toString()+ "/armas");
         File jsonfile = new File(mFolder.getAbsolutePath() + "/targets.json");
 
-        Writer writer = null;
+        mFolder.mkdir();
 
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(jsonfile.getAbsolutePath()), "utf-8"));
-            writer.write(image.toString());
-            System.out.println("WRITE TO FILE");
-        } catch (IOException ex) {
-            // Report
-        } finally {
-            try {writer.close();} catch (Exception ex) {System.out.println("DID NOT WRITE TO FILE");}
+            Writer output = null;
+            output = new BufferedWriter(new FileWriter(jsonfile));
+            output.write(images.toString(1));
+            output.close();
+            System.out.println("WRITTEN");
+        } catch (Exception e) {
+            System.out.println("FAILED TO WRITE 1");
         }
 
-
-
-        System.out.println(jsonfile.toString());
-        if (!mFolder.exists()) {
-            System.out.println("DIRECORY MADE");
-            mFolder.mkdir();
-        }
         try{
 
             jsonfile.createNewFile();
@@ -409,6 +420,28 @@ public class HelloAR
         } catch (IOException ae){
             System.out.println("FILE NOT CREATED" + ae);
         }
+
+        /*System.out.println(image.toString());
+
+
+
+        Writer writer = null;
+
+        System.out.println(jsonfile.toString());
+
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(jsonfile.getAbsolutePath()), "utf-8"));
+            writer.write(image.toString());
+            System.out.println("WRITE TO FILE");
+            writer.close();
+        } catch (IOException ex) {
+            // Report
+        } finally {
+            try {writer.close();} catch (Exception ex) {System.out.println("DID NOT WRITE TO FILE");}
+        }
+        */
 
     }
 }

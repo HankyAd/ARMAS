@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -16,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+
+import static cn.easyar.engine.EasyAR.getApplicationContext;
 
 /**
  * Created by Adam on 09/03/2018.
@@ -39,13 +42,41 @@ public class DAO {
         createRecords();
     }
 
+    public static boolean createDirIfNotExists() {
+        boolean ret = true;
+
+        File file = new File(Environment.getExternalStorageDirectory() + "/armas");
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                System.out.println("DIRECTORY CREATED");
+                ret = false;
+            }
+        }
+
+        file = new File(Environment.getExternalStorageDirectory() + "/image");
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                System.out.println("DIRECTORY CREATED");
+                ret = false;
+            }
+        }
+
+        return ret;
+    }
+
     /**
      * Used to create initial records on initial creation of class. DO NOT RUN OUTSIDE OF INITIATOR
      */
     public void createRecords() {
+
+        System.out.println("BEFORE");
         String query = "select * from Room";
         Cursor mCursor = database.rawQuery(query, null);
-        if (mCursor != null) {
+        if (mCursor.getCount() == 0) {
+            System.out.println("AFTER");
+
+
+
             //insert dummy data into database for table House
             database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('111', 'Somewhere Ave', 'PO1 0AA');");
             database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('112', 'Somewhere Street', 'PO1 0AB');");
