@@ -52,6 +52,15 @@ public class DAO {
                 ret = false;
             }
         }
+
+        file = new File(Environment.getExternalStorageDirectory() + "/image");
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                System.out.println("DIRECTORY CREATED");
+                ret = false;
+            }
+        }
+
         return ret;
     }
 
