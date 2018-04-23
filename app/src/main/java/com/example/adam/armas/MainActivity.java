@@ -83,12 +83,10 @@ public class MainActivity extends AppCompatActivity{
         requestPermission();
         DAO dao = new DAO(this);
         dataAccessObject = dao;
-<<<<<<< HEAD
+
         System.out.println(dataAccessObject.getAsbIDByImageName("demo1"));
         setContentView(R.layout.activity_welcome);
-=======
 
->>>>>>> 83aade58691a519850bfde005fd46323db3f4909
         GlobalClass g = (GlobalClass)this.getApplication();
         g.setDAO(dataAccessObject);
 
