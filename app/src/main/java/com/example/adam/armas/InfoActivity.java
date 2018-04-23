@@ -1,11 +1,7 @@
 package com.example.adam.armas;
 
-import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.icu.text.IDNA;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -56,11 +51,10 @@ public class InfoActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_info);
-        //fgsbfs/
-        System.out.println(imageName + "Hello ");
+
         int asbID = dao.getAsbIDByImageName(imageName);
-        Cursor room = dao.getRoomByAsbestos(asbID);
-        Cursor house = dao.getHouseByAsbestos(asbID);
+        Cursor room = dao.getRoomByID(asbID);
+        Cursor house = dao.getHouseByID(asbID);
         Cursor asb = dao.getAsbestosByAsbestosID(asbID);
 
         TextView t = findViewById(R.id.textView9);

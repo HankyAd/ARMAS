@@ -39,7 +39,9 @@ public class DAO {
         createRecords();
     }
 
-
+    /**
+     * Used to create initial records on initial creation of class. DO NOT RUN OUTSIDE OF INITIATOR
+     */
     public void createRecords() {
         //insert dummy data into database for table House
         database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('111', 'Somewhere Ave', 'PO1 0AA');");
@@ -83,70 +85,47 @@ public class DAO {
         System.out.println("asb inserted");
     }
 
-    public Cursor getAsbestosRow() {
-        Cursor mCursor = database.rawQuery("select * from Asbestos", null);
-        if (mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor; // iterate to get each value.
+    /**
+     * Used to create asbestos record
+     * @param desc
+     * @param imgName
+     * @param roomID
+     * @param houseID
+     */
+    public void createAsbestos(String desc, String imgName, String roomID, String houseID){
+        String sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('"+ desc +"', '"+ imgName +"' , "+roomID+", " + houseID + ");";
+        database.execSQL(sql);
     }
 
-    public Cursor getRoomRow(Cursor asb) {
-        String query = "select * from Room where Room_ID = " + asb.getString(3);
-        Cursor mCursor = database.rawQuery(query, null);
-        if (mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor; // iterate to get each value.
+    /**
+     * Creates record in House table
+     * @param houseNum
+     * @param houseStreet
+     * @param housePostcode
+     */
+    public void createHouse(String houseNum, String houseStreet, String housePostcode){
+        database.execSQL( "insert into House (House_Number, House_Street, House_Postcode) values ('" + houseNum + "', '" + houseStreet + "', '" + housePostcode + "');" );
     }
 
-    public Cursor getHouseRow(Cursor asb) {
-        String query = "select * from House where House_ID = " + asb.getString(4);
-        Cursor mCursor = database.rawQuery(query, null);
-        if (mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor; // iterate to get each value.
+    /**
+     * Creates row in Room
+     * @param roomName
+     * @param houseID
+     */
+    public void createRoom(String roomName, String houseID){
+        database.execSQL( "insert into Room (Room_Name, House_ID) values ("+ roomName +", "+ houseID +");" );
     }
 
-    public Cursor selectRecords() {
-        Cursor mCursor = database.rawQuery("select * from House", null);
-        if (mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor; // iterate to get each value.
+    public void updateAsbestos(String roomName, String houseID){
+        database.execSQL( "insert into Room (Room_Name, House_ID) values ("+ roomName +", "+ houseID +");" );
     }
 
-    public static Bitmap getBitmapFromAsset(Context context, String filePath) {
-        AssetManager assetManager = context.getAssets();
-
-        InputStream istr;
-        Bitmap bitmap = null;
-        try {
-            istr = assetManager.open(filePath);
-            bitmap = BitmapFactory.decodeStream(istr);
-        } catch (IOException e) {
-            // handle exception
-        }
-
-        return bitmap;
-    }
-
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Cursor getRoomByID(String id) {
-        try {
-            String query = "select * from Room where Room_ID = " + id;
-            Cursor mCursor = database.rawQuery(query, null);
-            if (mCursor != null) {
-                mCursor.moveToFirst();
-            }
-            return mCursor; // iterate to get each value.
-        }catch (Exception ex){
-            System.out.println("Error");
-        }
-        return null;
-    }
-
-    public Cursor getRoomByAsbestos(int id){
         String query = "select * from Room where Room_ID = " + id;
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
@@ -155,7 +134,26 @@ public class DAO {
         return mCursor; // iterate to get each value.
     }
 
-    public Cursor getHouseByAsbestos(int id){
+    /**
+     * Returns row in room by inputted ID
+     * @param RoomID
+     * @return
+     */
+    public Cursor getRoomByID(int RoomID){
+        String query = "select * from Room where Room_ID = " + RoomID;
+        Cursor mCursor = database.rawQuery(query, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor; // iterate to get each value.
+    }
+
+    /**
+     * Returns row in house by inputted ID
+     * @param id
+     * @return
+     */
+    public Cursor getHouseByID(int id){
         String query = "select * from House where House_ID = " + id;
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
@@ -164,6 +162,11 @@ public class DAO {
         return mCursor; // iterate to get each value.
     }
 
+    /**
+     * Returns row in asbestos by inputted ID
+     * @param id
+     * @return
+     */
     public Cursor getAsbestosByAsbestosID(int id){
         String query = "select * from Asbestos where Asbestos_ID = " + id;
         Cursor mCursor = database.rawQuery(query, null);
@@ -173,25 +176,16 @@ public class DAO {
         return mCursor; // iterate to get each value.
     }
 
+    /**
+     * returns row in asbestos based on inputted image name
+     * @param imgName
+     * @return
+     */
     public int getAsbIDByImageName(String imgName){
         String query = "select Asbestos_ID from Asbestos where Asbestos_Image_Name = '" + imgName + "'";
         Cursor mCursor = database.rawQuery(query, null);
         mCursor.moveToFirst();
         return mCursor.getInt(0);
-    }
-
-    public Cursor getAsbestosByRoomID(String id){
-        try {
-            String query = "select * from Asbestos where Room_ID = " + id;
-            Cursor mCursor = database.rawQuery(query, null);
-            if (mCursor != null) {
-                mCursor.moveToFirst();
-            }
-            return mCursor; // iterate to get each value.
-        }catch (Exception ex){
-            System.out.println("Error");
-        }
-        return null;
     }
 
 }
