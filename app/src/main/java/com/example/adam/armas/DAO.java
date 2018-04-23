@@ -43,46 +43,50 @@ public class DAO {
      * Used to create initial records on initial creation of class. DO NOT RUN OUTSIDE OF INITIATOR
      */
     public void createRecords() {
-        //insert dummy data into database for table House
-        database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('111', 'Somewhere Ave', 'PO1 0AA');");
-        database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('112', 'Somewhere Street', 'PO1 0AB');");
-        database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('113', 'Somewhere Lane', 'PO1 0AC');");
-        database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('114', 'Somewhere Square', 'PO1 0AD');");
-        database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('115', 'Somewhere Creek', 'PO1 0AE');");
-        System.out.println("house inserted");
-        //insert dummy data into database for table Room
-        database.execSQL("insert into Room (Room_Name, House_ID) values ('Upstairs Master Bedroom', 1);");
-        database.execSQL("insert into Room (Room_Name, House_ID) values ('Bathroom', 2);");
-        database.execSQL("insert into Room (Room_Name, House_ID) values ('Kitchen', 3);");
-        database.execSQL("insert into Room (Room_Name, House_ID) values ('Dining Room', 4);");
-        database.execSQL("insert into Room (Room_Name, House_ID) values ('Lounge', 5);");
-        System.out.println("room inserted");
-        //insert dummy data into database for Asbestos
+        String query = "select * from Room";
+        Cursor mCursor = database.rawQuery(query, null);
+        if (mCursor != null) {
+            //insert dummy data into database for table House
+            database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('111', 'Somewhere Ave', 'PO1 0AA');");
+            database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('112', 'Somewhere Street', 'PO1 0AB');");
+            database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('113', 'Somewhere Lane', 'PO1 0AC');");
+            database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('114', 'Somewhere Square', 'PO1 0AD');");
+            database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('115', 'Somewhere Creek', 'PO1 0AE');");
+            System.out.println("house inserted");
+            //insert dummy data into database for table Room
+            database.execSQL("insert into Room (Room_Name, House_ID) values ('Upstairs Master Bedroom', 1);");
+            database.execSQL("insert into Room (Room_Name, House_ID) values ('Bathroom', 2);");
+            database.execSQL("insert into Room (Room_Name, House_ID) values ('Kitchen', 3);");
+            database.execSQL("insert into Room (Room_Name, House_ID) values ('Dining Room', 4);");
+            database.execSQL("insert into Room (Room_Name, House_ID) values ('Lounge', 5);");
+            System.out.println("room inserted");
+            //insert dummy data into database for Asbestos
 
-        String sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Left window, upperleft side of windowsill', 'demo1' , 1, 1);";
-        database.execSQL(sql);
+            String sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Left window, upperleft side of windowsill', 'demo1' , 1, 1);";
+            database.execSQL(sql);
 
-        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Behind sink bowl', 'demo2', 2, 2);";
-        database.execSQL(sql);
+            sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Behind sink bowl', 'demo2', 2, 2);";
+            database.execSQL(sql);
 
-        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Underneath Oven', 'demo3', 3, 3);";
-        database.execSQL(sql);
+            sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Underneath Oven', 'demo3', 3, 3);";
+            database.execSQL(sql);
 
-        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Underneath carpet, north side of room', 'demo4', 4, 4);";
-        database.execSQL(sql);
+            sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Underneath carpet, north side of room', 'demo4', 4, 4);";
+            database.execSQL(sql);
 
-        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Above main entrance doorway', 'demo5', 5, 5);";
-        database.execSQL(sql);
+            sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Above main entrance doorway', 'demo5', 5, 5);";
+            database.execSQL(sql);
 
-        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Underneath carpet. Middle of Room', 'demo6', 5, 5);";
-        database.execSQL(sql);
+            sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Underneath carpet. Middle of Room', 'demo6', 5, 5);";
+            database.execSQL(sql);
 
-        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Cupboard under sink', 'demo7', 3, 3);";
-        database.execSQL(sql);
+            sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Cupboard under sink', 'demo7', 3, 3);";
+            database.execSQL(sql);
 
-        sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Underneath Bath', 'demo8', 2, 2);";
-        database.execSQL(sql);
-        System.out.println("asb inserted");
+            sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('Underneath Bath', 'demo8', 2, 2);";
+            database.execSQL(sql);
+            System.out.println("asb inserted");
+        }
     }
 
     /**
@@ -155,6 +159,15 @@ public class DAO {
      */
     public Cursor getHouseByID(int id){
         String query = "select * from House where House_ID = " + id;
+        Cursor mCursor = database.rawQuery(query, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor; // iterate to get each value.
+    }
+
+    public Cursor getAsbestosByRoomID(String id){
+        String query = "select * from Asbestos where Room_ID = " + id;
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
