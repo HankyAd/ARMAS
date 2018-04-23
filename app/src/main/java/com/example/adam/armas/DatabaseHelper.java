@@ -28,6 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Method is called during creation of the database
     @Override
     public void onCreate(SQLiteDatabase database) {
+
         database.execSQL("create table House (House_ID integer primary key not null, House_Number text, House_Street text, House_Postcode);");
         database.execSQL("create table Room (Room_ID integer primary key not null, Room_Name text, House_ID integer, FOREIGN KEY(House_ID) REFERENCES House(House_ID) );");
         database.execSQL("create table Asbestos(Asbestos_ID integer primary key not null, Asbestos_Desc text, Asbestos_Image_Name text, House_ID integer, Room_ID integer, FOREIGN KEY(House_ID) REFERENCES House(House_ID), FOREIGN KEY(Room_ID) REFERENCES Room(Room_ID));");

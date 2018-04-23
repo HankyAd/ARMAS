@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 
@@ -345,6 +346,7 @@ public class HelloAR
                     if(m != null) {
                         Cursor n = dao.getAsbestosByRoomID(text);
                         n.moveToFirst();
+                        System.out.println("AFAFAFAFAFAFAF");
                         updateJSON(n);
                         Log.i("HelloAR", "got qrcode: " + text);
                         onAlert.invoke("got qrcode: " + text);
@@ -366,30 +368,47 @@ public class HelloAR
         do{
             System.out.println("ssdksjdksjdksjdksjdksjdksjdksjdksjdks  "+mCursor.getString(2));
             try {
-                image.put("image", "demo/");
+                image.put("image", "demo" + mCursor.getString(2));
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                System.out.println("IMAGE PUT ERROR");
             }
             i++;
             mCursor.moveToNext();
         }while(!mCursor.isAfterLast());
 
-        File mFolder = new File(Environment.DIRECTORY_DOCUMENTS + "/armas");
+        System.out.println(image.toString());
+
+        File mFolder = new File(getApplicationContext().getExternalFilesDir(null).getAbsolutePath().toString()+ "/armas");
         File jsonfile = new File(mFolder.getAbsolutePath() + "/targets.json");
+
+        Writer writer = null;
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(jsonfile.getAbsolutePath()), "utf-8"));
+            writer.write(image.toString());
+            System.out.println("WRITE TO FILE");
+        } catch (IOException ex) {
+            // Report
+        } finally {
+            try {writer.close();} catch (Exception ex) {System.out.println("DID NOT WRITE TO FILE");}
+        }
+
+
+
+        System.out.println(jsonfile.toString());
         if (!mFolder.exists()) {
+            System.out.println("DIRECORY MADE");
             mFolder.mkdir();
         }
-        if (!jsonfile.exists()) {
-            //jsonfile.createNewFile();
-        }
-        FileOutputStream fos = null;
-        /*try {
-            //fos = new FileOutputStream(jsonFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        try{
 
+            jsonfile.createNewFile();
+            System.out.println("FILE CREATED");
+        } catch (IOException ae){
+            System.out.println("FILE NOT CREATED" + ae);
+        }
 
     }
 }
