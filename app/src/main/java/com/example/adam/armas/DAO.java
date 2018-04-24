@@ -32,6 +32,8 @@ public class DAO {
 
     private Context cont;
 
+    private String asbID;
+
     /**
      * @param context
      */
@@ -74,7 +76,6 @@ public class DAO {
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor.getCount() == 0) {
             System.out.println("AFTER");
-
 
 
             //insert dummy data into database for table House
@@ -120,43 +121,64 @@ public class DAO {
         }
     }
 
+    public void setAsbID(String asb){
+        asbID = asb;
+    }
+
+    public String getAsbID(){
+        return asbID;
+    }
+
     /**
      * Used to create asbestos record
+     *
      * @param desc
      * @param imgName
      * @param roomID
      * @param houseID
      */
-    public void createAsbestos(String desc, String imgName, String roomID, String houseID){
-        String sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('"+ desc +"', '"+ imgName +"' , "+roomID+", " + houseID + ");";
+    public void createAsbestos(String desc, String imgName, String roomID, String houseID) {
+        String sql = "insert into Asbestos (Asbestos_Desc, Asbestos_Image_Name, Room_ID, House_ID) values ('" + desc + "', '" + imgName + "' , " + roomID + ", " + houseID + ");";
         database.execSQL(sql);
     }
 
     /**
      * Creates record in House table
+     *
      * @param houseNum
      * @param houseStreet
      * @param housePostcode
      */
-    public void createHouse(String houseNum, String houseStreet, String housePostcode){
-        database.execSQL( "insert into House (House_Number, House_Street, House_Postcode) values ('" + houseNum + "', '" + houseStreet + "', '" + housePostcode + "');" );
+    public void createHouse(String houseNum, String houseStreet, String housePostcode) {
+        database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('" + houseNum + "', '" + houseStreet + "', '" + housePostcode + "');");
     }
 
     /**
      * Creates row in Room
+     *
      * @param roomName
      * @param houseID
      */
-    public void createRoom(String roomName, String houseID){
-        database.execSQL( "insert into Room (Room_Name, House_ID) values ("+ roomName +", "+ houseID +");" );
+    public void createRoom(String roomName, String houseID) {
+        database.execSQL("insert into Room (Room_Name, House_ID) values (" + roomName + ", " + houseID + ");");
     }
 
-    public void updateAsbestos(String roomName, String houseID){
-        database.execSQL( "insert into Room (Room_Name, House_ID) values ("+ roomName +", "+ houseID +");" );
+
+    public Cursor getHouseID(String number, String street, String post){
+        String query = "select House_ID from House where House_Number = " + number + " AND  House_Street = " + street + " AND House_Postcode = " + post;
+        Cursor mCursor = database.rawQuery(query, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor; // iterate to get each value.
     }
+    public void updateRow(String column, String content, String ID, String table) {
+        database.execSQL("UPDATE " + table + " Set" + column + "=" + content + "WHERE " + table + "_ID = " + ID);
+    }
+
+
 
     /**
-     *
      * @param id
      * @return
      */
@@ -169,12 +191,22 @@ public class DAO {
         return mCursor; // iterate to get each value.
     }
 
+    public Cursor getRoomByHouseID(String id) {
+        String query = "select * from Room where House_ID = " + id;
+        Cursor mCursor = database.rawQuery(query, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor; // iterate to get each value.
+    }
+
     /**
      * Returns row in room by inputted ID
+     *
      * @param RoomID
      * @return
      */
-    public Cursor getRoomByID(int RoomID){
+    public Cursor getRoomByID(int RoomID) {
         String query = "select * from Room where Room_ID = " + RoomID;
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
@@ -185,10 +217,11 @@ public class DAO {
 
     /**
      * Returns row in house by inputted ID
+     *
      * @param id
      * @return
      */
-    public Cursor getHouseByID(int id){
+    public Cursor getHouseByID(String id) {
         String query = "select * from House where House_ID = " + id;
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
@@ -197,7 +230,7 @@ public class DAO {
         return mCursor; // iterate to get each value.
     }
 
-    public Cursor getAsbestosByRoomID(String id){
+    public Cursor getAsbestosByRoomID(String id) {
         String query = "select * from Asbestos where Room_ID = " + id;
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
@@ -208,10 +241,11 @@ public class DAO {
 
     /**
      * Returns row in asbestos by inputted ID
+     *
      * @param id
      * @return
      */
-    public Cursor getAsbestosByAsbestosID(int id){
+    public Cursor getAsbestosByAsbestosID(String id) {
         String query = "select * from Asbestos where Asbestos_ID = " + id;
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
@@ -222,14 +256,15 @@ public class DAO {
 
     /**
      * returns row in asbestos based on inputted image name
+     *
      * @param imgName
      * @return
      */
-    public int getAsbIDByImageName(String imgName){
+    public String getAsbIDByImageName(String imgName) {
         String query = "select Asbestos_ID from Asbestos where Asbestos_Image_Name = '" + imgName + "'";
         Cursor mCursor = database.rawQuery(query, null);
         mCursor.moveToFirst();
-        return mCursor.getInt(0);
+        return mCursor.getString(0);
     }
 
 }

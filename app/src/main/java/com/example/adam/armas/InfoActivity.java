@@ -51,10 +51,14 @@ public class InfoActivity extends Activity {
 
 
 
-        int asbID = dao.getAsbIDByImageName(imageName);
+        String asbID = dao.getAsbIDByImageName(imageName);
+        dao.setAsbID("" + asbID);
         Cursor room = dao.getRoomByID(asbID);
+        room.moveToFirst();
         Cursor house = dao.getHouseByID(asbID);
+        house.moveToFirst();
         Cursor asb = dao.getAsbestosByAsbestosID(asbID);
+        asb.moveToFirst();
 
         TextView t = findViewById(R.id.textView9);
         t.setText("Description: " + asb.getString(1));

@@ -22,7 +22,7 @@
 
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/descip"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -37,39 +37,39 @@
         android:layout_width="379dp"
         android:layout_height="wrap_content"
 
-        android:layout_below="@+id/editText4"
+        android:layout_below="@+id/houseNumber"
         android:ems="10"
         android:inputType="number"
         android:hint="@string/edit_room_number"
         tools:ignore="LabelFor" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/houseNumber"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText5"
+        android:layout_below="@+id/street"
         android:ems="10"
         android:inputType="number"
         android:hint="@string/edit_house_number"
         tools:ignore="LabelFor" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/street"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
 
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/postCode"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/edit_house_street"
         tools:ignore="LabelFor" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/postCode"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
 
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/descip"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/edit_house_poscode"
@@ -91,14 +91,14 @@
         android:focusable="true" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton4"
+        android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:clickable="true"
+        android:focusable="true"
         app:backgroundTint="@color/colorPrimaryDark"
-        app:srcCompat="@android:drawable/ic_menu_delete"
-        android:focusable="true" />
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 
 
 </RelativeLayout>
