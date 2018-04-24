@@ -397,9 +397,6 @@ public class HelloAR
 
         }
 
-        //JSONObject  jsonObject = image.makeJSONObject("image", "name");
-        //MyCompositionsListActivity.buildList();
-
         File mFolder = new File(getApplicationContext().getExternalFilesDir(null).getAbsolutePath().toString()+ "/armas");
         File jsonfile = new File(mFolder.getAbsolutePath() + "/targets.json");
 
@@ -423,40 +420,5 @@ public class HelloAR
             System.out.println("FILE NOT CREATED" + ae);
         }
 
-        /*System.out.println(image.toString());
-
-
-
-        Writer writer = null;
-
-        System.out.println(jsonfile.toString());
-
-
-        try {
-            writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(jsonfile.getAbsolutePath()), "utf-8"));
-            writer.write(image.toString());
-            System.out.println("WRITE TO FILE");
-            writer.close();
-        } catch (IOException ex) {
-            // Report
-        } finally {
-            try {writer.close();} catch (Exception ex) {System.out.println("DID NOT WRITE TO FILE");}
-        }
-        */
-
-    }
-}
-
-class img{
-    public String image;
-    public String name;
-
-    public void setImage(String img){
-        image = img;
-    }
-
-    public void setName(String nm){
-        name = nm;
     }
 }

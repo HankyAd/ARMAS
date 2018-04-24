@@ -47,7 +47,7 @@ public class DAO {
     public static boolean createDirIfNotExists() {
         boolean ret = true;
 
-        File file = new File(Environment.getExternalStorageDirectory() + "/armas");
+        File file = new File(getApplicationContext().getExternalFilesDir(null) + "/armas");
         if (!file.exists()) {
             if (!file.mkdirs()) {
                 System.out.println("DIRECTORY CREATED");
@@ -55,7 +55,7 @@ public class DAO {
             }
         }
 
-        file = new File(Environment.getExternalStorageDirectory() + "/image");
+        file = new File(getApplicationContext().getExternalFilesDir(null) + "/image");
         if (!file.exists()) {
             if (!file.mkdirs()) {
                 System.out.println("DIRECTORY CREATED");
@@ -193,7 +193,7 @@ public class DAO {
      * @return
      */
     public Cursor getRoomByID(String id) {
-        String query = "select * from Room where Room_ID = 6";
+        String query = "select * from Room where Room_ID = " + id;
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
             mCursor.moveToFirst();

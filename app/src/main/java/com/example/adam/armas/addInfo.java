@@ -196,8 +196,8 @@ public class addInfo extends AppCompatActivity {
             Cursor room = dao.getRoomByHouseID(house.getString(0));
             if(room.getCount() > 0){
                 System.out.println("HELP "+dao.retRoomByHouseID(house.getString(0)));
-                dao.createAsbestos(asbestosDescrip, "image1", house.getString(0), room.getString(0));
-                System.out.println(dao.getAsbIDByImageName("image1"));
+                dao.createAsbestos(asbestosDescrip, "image", house.getString(0), room.getString(0));
+
             }
         }
     }

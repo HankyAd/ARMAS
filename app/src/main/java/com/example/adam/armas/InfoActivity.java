@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static android.view.View.VISIBLE;
+import static cn.easyar.engine.EasyAR.getApplicationContext;
 
 public class InfoActivity extends Activity {
     private DAO dao;
@@ -43,6 +44,7 @@ public class InfoActivity extends Activity {
 
 
         String s = getIntent().getStringExtra("IMAGE_NAME");
+        System.out.println("IMAGE NAME IS: " + s);
         imageName = s;
         //comment
         GlobalClass g = (GlobalClass)this.getApplication();
@@ -53,9 +55,12 @@ public class InfoActivity extends Activity {
 
         String asbID = dao.getAsbIDByImageName(imageName);
         dao.setAsbID("" + asbID);
-        Cursor room = dao.getRoomByID(asbID);
+
+        Cursor asbestos = dao.getAsbestosByAsbestosID(asbID);
+
+        Cursor room = dao.getRoomByID(asbestos.getString(3));
         room.moveToFirst();
-        Cursor house = dao.getHouseByID(asbID);
+        Cursor house = dao.getHouseByID(asbestos.getString(3));
         house.moveToFirst();
         Cursor asb = dao.getAsbestosByAsbestosID(asbID);
         asb.moveToFirst();
@@ -81,8 +86,9 @@ public class InfoActivity extends Activity {
 
         try
         {
+            System.out.println("/storage/emulated/0/Android/data/com.example.adam.armas/files/image/" +imageName+".jpg");
             // get input stream
-            InputStream ims = getAssets().open("demo/"+imageName+".jpg");
+            InputStream ims = getAssets().open("/storage/emulated/0/Android/data/com.example.adam.armas/files/image/" +imageName+".jpg");
             // load image as Drawable
             Drawable d = Drawable.createFromStream(ims, null);
             // set image to ImageView
@@ -92,7 +98,7 @@ public class InfoActivity extends Activity {
         }
         catch(IOException ex)
         {
-            return;
+            System.out.println(ex);
         }
     }
 }
