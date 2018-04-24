@@ -1,19 +1,19 @@
 package com.example.adam.armas;
 
-<<<<<<< HEAD
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-=======
+
 import android.database.Cursor;
->>>>>>> d9f0149c0728fb66a56a6347d709f206d0a0e2b7
+
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-<<<<<<< HEAD
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,10 +23,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-=======
+
 import android.widget.EditText;
 import android.widget.ImageView;
->>>>>>> d9f0149c0728fb66a56a6347d709f206d0a0e2b7
+
 
 public class editInfo extends AppCompatActivity {
     private DAO dao;
@@ -49,7 +49,7 @@ public class editInfo extends AppCompatActivity {
 
 
         final FloatingActionButton Save2 = (FloatingActionButton) findViewById(R.id.save2);
-        final FloatingActionButton test = (FloatingActionButton) findViewById(R.id.float4);
+        final FloatingActionButton test = (FloatingActionButton) findViewById(R.id.editDelete);
         final Button button = (Button) findViewById(R.id.button12);
         final ImageView imageView = (ImageView) findViewById(R.id.imageView8);
 
@@ -121,7 +121,7 @@ public class editInfo extends AppCompatActivity {
         startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
     }
 
-<<<<<<< HEAD
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -159,7 +159,7 @@ public class editInfo extends AppCompatActivity {
 
     }
 
-=======
+
 
     public void updateEntry(){
 
@@ -198,7 +198,7 @@ public class editInfo extends AppCompatActivity {
             dao.updateRow("Room_Name", roomName, rID, "Room");
         }
     }
->>>>>>> d9f0149c0728fb66a56a6347d709f206d0a0e2b7
+
 
 }
 

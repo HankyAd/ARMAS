@@ -161,12 +161,11 @@ public class addInfo extends AppCompatActivity {
 
     }
 
-<<<<<<< HEAD
-}
 
 
 
-=======
+
+
     public boolean validEntry(){
         return true;
     }
@@ -199,5 +198,5 @@ public class addInfo extends AppCompatActivity {
     }
 
 }
->>>>>>> d9f0149c0728fb66a56a6347d709f206d0a0e2b7
+
 
