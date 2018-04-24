@@ -186,6 +186,11 @@ public class DAO {
         database.execSQL("UPDATE " + table + " Set " + column + "= '" + content + "' WHERE " + table + "_ID = " + ID);
     }
 
+    public void deleteRow(String table, String id){
+        System.out.println("DELETE FROM " + table + " WHERE " + table + "_ID = " + id);
+        database.execSQL("DELETE FROM " + table + " WHERE " + table + "_ID = " + id);
+    }
+
 
 
     /**

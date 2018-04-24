@@ -373,52 +373,53 @@ public class HelloAR
         System.out.println("SAIFSAKDJBSAPDKJSH " + count);
         JSONObject images = new JSONObject();
         JSONArray comb = new JSONArray();
-        do{
+        if(count != 0) {
+            do {
 
-            System.out.println("ssdksjdksjdksjdksjdksjdksjdksjdksjdks  "+mCursor.getCount());
-            names[i] = mCursor.getString(2);
-            JSONObject image = new JSONObject();
+                System.out.println("ssdksjdksjdksjdksjdksjdksjdksjdksjdks  " + mCursor.getCount());
+                names[i] = mCursor.getString(2);
+                JSONObject image = new JSONObject();
+                try {
+                    image.put("image", "/storage/emulated/0/Android/data/com.example.adam.armas/files/image/" + names[i] + ".jpg");
+                    image.put("name", names[i]);
+
+                    comb.put(image);
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    System.out.println("IMAGE PUT ERROR");
+                }
+                i++;
+                mCursor.moveToNext();
+            } while (!mCursor.isAfterLast());
+
             try {
-                image.put("image", "/storage/emulated/0/Android/data/com.example.adam.armas/files/image/" + names[i] + ".jpg");
-                image.put("name" , names[i]);
+                images.accumulate("images", comb);
+            } catch (JSONException gf) {
 
-                comb.put(image);
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                System.out.println("IMAGE PUT ERROR");
             }
-            i++;
-            mCursor.moveToNext();
-        }while(!mCursor.isAfterLast());
 
-        try{
-            images.accumulate("images", comb);
-        }catch (JSONException gf){
+            File mFolder = new File(getApplicationContext().getExternalFilesDir(null).getAbsolutePath().toString() + "/armas");
+            File jsonfile = new File(mFolder.getAbsolutePath() + "/targets.json");
 
+            mFolder.mkdir();
+
+            try {
+                Writer output = null;
+                output = new BufferedWriter(new FileWriter(jsonfile));
+                output.write(images.toString(1));
+                output.close();
+                System.out.println("WRITTEN");
+            } catch (Exception e) {
+                System.out.println("FAILED TO WRITE 1");
+            }
+
+            try {
+
+                jsonfile.createNewFile();
+                System.out.println("FILE CREATED");
+            } catch (IOException ae) {
+                System.out.println("FILE NOT CREATED" + ae);
+            }
         }
-
-        File mFolder = new File(getApplicationContext().getExternalFilesDir(null).getAbsolutePath().toString()+ "/armas");
-        File jsonfile = new File(mFolder.getAbsolutePath() + "/targets.json");
-
-        mFolder.mkdir();
-
-        try {
-            Writer output = null;
-            output = new BufferedWriter(new FileWriter(jsonfile));
-            output.write(images.toString(1));
-            output.close();
-            System.out.println("WRITTEN");
-        } catch (Exception e) {
-            System.out.println("FAILED TO WRITE 1");
-        }
-
-        try{
-
-            jsonfile.createNewFile();
-            System.out.println("FILE CREATED");
-        } catch (IOException ae){
-            System.out.println("FILE NOT CREATED" + ae);
-        }
-
     }
 }
