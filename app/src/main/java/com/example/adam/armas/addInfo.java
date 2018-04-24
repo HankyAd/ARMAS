@@ -73,6 +73,9 @@ public class addInfo extends AppCompatActivity {
 
         Save1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                if(validEntry()){
+                    storeEntry();
+                }
 
 
                 ImageView imagView = (ImageView) findViewById(R.id.imageView5);
@@ -181,18 +184,20 @@ public class addInfo extends AppCompatActivity {
         String housePostCode = t.getText().toString();
         t = findViewById(R.id.roomName);
         String roomName = t.getText().toString();
-
-
-        ImageView img = findViewById(R.id.photo);
-        //WRITE IMAGE TO EXTERNAL MEMORY
+        System.out.println(roomName);
 
         dao.createHouse(houseNum, houseStreet, housePostCode);
         Cursor house = dao.getHouseID(houseNum, houseStreet, housePostCode);
+        System.out.println("before");
         if(house.getCount()>0){
+            System.out.println("house getcount > 0    = " + house.getCount());
             dao.createRoom(roomName, house.getString(0));
+            System.out.println(house.getString(0));
             Cursor room = dao.getRoomByHouseID(house.getString(0));
             if(room.getCount() > 0){
-                dao.createAsbestos(asbestosDescrip, "", house.getString(0), room.getString(0));
+                System.out.println("HELP "+dao.retRoomByHouseID(house.getString(0)));
+                dao.createAsbestos(asbestosDescrip, "image1", house.getString(0), room.getString(0));
+                System.out.println(dao.getAsbIDByImageName("image1"));
             }
         }
     }

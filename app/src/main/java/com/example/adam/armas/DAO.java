@@ -150,7 +150,7 @@ public class DAO {
      * @param housePostcode
      */
     public void createHouse(String houseNum, String houseStreet, String housePostcode) {
-        database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('" + houseNum + "', '" + houseStreet + "', '" + housePostcode + "');");
+        database.execSQL("insert into House (House_Number, House_Street, House_Postcode) values ('"+houseNum+"', '"+houseStreet+"', '"+housePostcode+"');");
     }
 
     /**
@@ -160,12 +160,22 @@ public class DAO {
      * @param houseID
      */
     public void createRoom(String roomName, String houseID) {
-        database.execSQL("insert into Room (Room_Name, House_ID) values (" + roomName + ", " + houseID + ");");
+        database.execSQL("insert into Room (Room_Name, House_ID) values ('" + roomName + "', " + houseID + ");");
+
+        String query = "select * from Room where Room_Name = '" + roomName + "'";
+        Cursor mCursor = database.rawQuery(query, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+
+        System.out.println(mCursor.getString(0));
+
+
     }
 
 
     public Cursor getHouseID(String number, String street, String post){
-        String query = "select House_ID from House where House_Number = " + number + " AND  House_Street = " + street + " AND House_Postcode = " + post;
+        String query = "select House_ID from House where House_Number = '" + number + "' AND  House_Street = '" + street + "' AND House_Postcode = '" + post +"'";
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -173,7 +183,7 @@ public class DAO {
         return mCursor; // iterate to get each value.
     }
     public void updateRow(String column, String content, String ID, String table) {
-        database.execSQL("UPDATE " + table + " Set" + column + "=" + content + "WHERE " + table + "_ID = " + ID);
+        database.execSQL("UPDATE " + table + " Set " + column + "= '" + content + "' WHERE " + table + "_ID = " + ID);
     }
 
 
@@ -183,7 +193,7 @@ public class DAO {
      * @return
      */
     public Cursor getRoomByID(String id) {
-        String query = "select * from Room where Room_ID = " + id;
+        String query = "select * from Room where Room_ID = 6";
         Cursor mCursor = database.rawQuery(query, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -213,6 +223,15 @@ public class DAO {
             mCursor.moveToFirst();
         }
         return mCursor; // iterate to get each value.
+    }
+
+    public String retRoomByHouseID(String hID){
+        String query = "select * from Room where House_ID = " + hID;
+        Cursor mCursor = database.rawQuery(query, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor.getString(0);
     }
 
     /**
@@ -261,7 +280,7 @@ public class DAO {
      * @return
      */
     public String getAsbIDByImageName(String imgName) {
-        String query = "select Asbestos_ID from Asbestos where Asbestos_Image_Name = '" + imgName + "'";
+        String query = "select * from Asbestos where Asbestos_Image_Name = '" + imgName + "'";
         Cursor mCursor = database.rawQuery(query, null);
         mCursor.moveToFirst();
         return mCursor.getString(0);

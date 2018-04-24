@@ -331,10 +331,11 @@ public class HelloAR
                 String regex = "[0-9]+";
                 if (text != null && !text.equals("") && text.matches(regex)) {
                     Cursor m = dao.getRoomByID(text);
-                    if(m != null) {
+                    System.out.println(m.getCount());
+                    if(m.getCount() >= 1) {
                         Cursor n = dao.getAsbestosByRoomID(text);
                         n.moveToFirst();
-                        System.out.println("AFAFAFAFAFAFAF");
+
                         updateJSON(n);
 
                         tracker1.stop();
@@ -373,7 +374,7 @@ public class HelloAR
         JSONArray comb = new JSONArray();
         do{
 
-            System.out.println("ssdksjdksjdksjdksjdksjdksjdksjdksjdks  "+mCursor.getString(2));
+            System.out.println("ssdksjdksjdksjdksjdksjdksjdksjdksjdks  "+mCursor.getCount());
             names[i] = mCursor.getString(2);
             JSONObject image = new JSONObject();
             try {

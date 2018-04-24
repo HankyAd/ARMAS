@@ -179,7 +179,7 @@ public class editInfo extends AppCompatActivity {
 
         String hID = dao.getAsbestosByAsbestosID(asbID).getString(4);
         String rID = dao.getAsbestosByAsbestosID(asbID).getString(3);
-        ImageView img = findViewById(R.id.photo);
+        ImageView img = findViewById(R.id.imageView8);
         //WRITE IMAGE TO EXTERNAL MEMORY
 
         if(asbestosDescrip != null || asbestosDescrip !=""){

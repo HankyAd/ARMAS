@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity{
         DAO dao = new DAO(this);
         dataAccessObject = dao;
 
-        System.out.println(dataAccessObject.getAsbIDByImageName("demo1"));
+
         setContentView(R.layout.activity_welcome);
 
         GlobalClass g = (GlobalClass)this.getApplication();
