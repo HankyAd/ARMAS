@@ -18,4 +18,5 @@
     <string name="add_house_poscode">Add House Poscode</string>
     <string name="add_room_number">Add Room Number</string>
     <string name="add_description">Add Description</string>
+    <string name="add_change_photo">Add/Change Photo</string>
 </resources>

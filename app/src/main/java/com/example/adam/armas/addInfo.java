@@ -2,9 +2,11 @@ package com.example.adam.armas;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +17,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Random;
 
+import static android.media.MediaScannerConnection.scanFile;
 import static android.view.View.VISIBLE;
+import static cn.easyar.engine.EasyAR.getApplicationContext;
 
 public class addInfo extends AppCompatActivity {
     private DAO dao;
@@ -38,13 +47,13 @@ public class addInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_info);
 
-
-        FloatingActionButton test = (FloatingActionButton) findViewById(R.id.floatingActionButton3);
+        final FloatingActionButton Save1 = (FloatingActionButton) findViewById(R.id.Save1);
+        final FloatingActionButton test = (FloatingActionButton) findViewById(R.id.floatingActionButton4);
         final Button button = (Button) findViewById(R.id.button10);
-        final ImageView imgView = (ImageView) findViewById(R.id.imageView5);
+        final ImageView imageView = (ImageView) findViewById(R.id.imageView5);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                loadImagefromGallery(imgView);
+                loadImagefromGallery(imageView);
             }
 
         });
@@ -58,8 +67,45 @@ public class addInfo extends AppCompatActivity {
         });
 
 
+        Save1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+
+                ImageView imagView = (ImageView) findViewById(R.id.imageView5);
+                imagView.buildDrawingCache();
+                Bitmap bmp = imagView.getDrawingCache();
+                File storageLoc = new File(getApplicationContext().getExternalFilesDir(null).getAbsolutePath().toString() + "/image"); //context.getExternalFilesDir(null);
+
+                File file = new File(storageLoc, "image" + ".jpg");
+
+                try{
+
+                    FileOutputStream fos = new FileOutputStream(file);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    fos.flush();
+                    fos.close();
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+
+
+            }
+
+
+
+        });
+
 
     }
+
+
 
 
 
@@ -69,6 +115,8 @@ public class addInfo extends AppCompatActivity {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // Start the Intent
+
+        galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
     }
 
@@ -110,3 +158,7 @@ public class addInfo extends AppCompatActivity {
     }
 
 }
+
+
+
+
