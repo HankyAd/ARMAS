@@ -39,7 +39,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/colorPrimaryDark"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="right|bottom"
@@ -49,7 +48,6 @@
         android:id="@+id/InfoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
         android:visibility="invisible"
         app:backgroundTint="@android:color/background_dark"
         app:layout_anchor="@+id/include"
@@ -57,20 +55,24 @@
         app:srcCompat="@android:drawable/ic_dialog_info" />
 
 
-    <com.felipecsl.gifimageview.library.GifImageView
-        android:id="@+id/gifImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:scaleType="fitCenter" />
+
 
     <Button
         android:id="@+id/button3"
         android:layout_width="191dp"
         android:layout_height="wrap_content"
-        android:text="Add New Record"
+        android:text="@string/add_new_record"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|center" />
+
+    <TextView
+        android:id="@+id/textView100"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/scan_qr_code_to_continue"
+        android:textSize="24sp"
+        android:visibility="invisible" />
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
 
-
+        final TextView textview = (TextView) findViewById(R.id.textView100);
         final Button AddButton = (Button) findViewById(R.id.button3);
         final FloatingActionButton InfoButton = (FloatingActionButton) findViewById(R.id.InfoButton);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -120,12 +120,14 @@ public class MainActivity extends AppCompatActivity{
                     ((ViewGroup) findViewById(R.id.preview)).addView(glView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)); // Creates a new View
                     glView.onResume();
                     AddButton.setVisibility(findViewById(R.id.button3).INVISIBLE);
+                    textview.setVisibility(findViewById(R.id.textView100).VISIBLE);
 
                 } else {
                     clicked = false;
                     glView.onPause();
                     ((ViewGroup) findViewById(R.id.preview)).removeAllViews();
                     AddButton.setVisibility(findViewById(R.id.button3).VISIBLE);
+                    textview.setVisibility(findViewById(R.id.textView100).INVISIBLE);
                 }
 
             }

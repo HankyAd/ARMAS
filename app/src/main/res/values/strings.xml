@@ -21,4 +21,6 @@
     <string name="add_change_photo">Add/Change Photo</string>
     <string name="add_room_name">Add Room Name</string>
     <string name="edit_room_name">Edit Room Name</string>
+    <string name="add_new_record">Add New Record</string>
+    <string name="scan_qr_code_to_continue">Scan Qr Code to Continue</string>
 </resources>
