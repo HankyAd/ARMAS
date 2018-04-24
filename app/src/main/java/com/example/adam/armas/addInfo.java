@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,9 @@ public class addInfo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalClass g = (GlobalClass)this.getApplication();
+        dao = g.getDAO();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_info);
 
@@ -157,8 +161,43 @@ public class addInfo extends AppCompatActivity {
 
     }
 
+<<<<<<< HEAD
 }
 
 
 
+=======
+    public boolean validEntry(){
+        return true;
+    }
+
+    public void storeEntry(){
+        EditText t = findViewById(R.id.descip);
+        String asbestosDescrip = t.getText().toString();
+        t = findViewById(R.id.houseNumber);
+        String houseNum = t.getText().toString();
+        t = findViewById(R.id.street);
+        String houseStreet = t.getText().toString();
+        t = findViewById(R.id.postCode);
+        String housePostCode = t.getText().toString();
+        t = findViewById(R.id.roomName);
+        String roomName = t.getText().toString();
+
+
+        ImageView img = findViewById(R.id.photo);
+        //WRITE IMAGE TO EXTERNAL MEMORY
+
+        dao.createHouse(houseNum, houseStreet, housePostCode);
+        Cursor house = dao.getHouseID(houseNum, houseStreet, housePostCode);
+        if(house.getCount()>0){
+            dao.createRoom(roomName, house.getString(0));
+            Cursor room = dao.getRoomByHouseID(house.getString(0));
+            if(room.getCount() > 0){
+                dao.createAsbestos(asbestosDescrip, "", house.getString(0), room.getString(0));
+            }
+        }
+    }
+
+}
+>>>>>>> d9f0149c0728fb66a56a6347d709f206d0a0e2b7
 

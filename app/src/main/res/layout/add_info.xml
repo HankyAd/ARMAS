@@ -9,65 +9,68 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/photo"
             android:layout_width="0dp"
             android:layout_height="192dp"
             android:layout_weight="1"
-            app:srcCompat="@android:drawable/screen_background_light"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/todo"
+            app:srcCompat="@android:drawable/screen_background_light" />
     </LinearLayout>
 
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/descip"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="211dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginTop="19dp"
         android:ems="10"
+        android:hint="@string/add_description"
         android:inputType="textPersonName"
-        android:hint = "@string/add_description"
         tools:ignore="LabelFor" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/roomName"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
 
-        android:layout_below="@+id/editText4"
+        android:layout_below="@+id/houseNumber"
         android:ems="10"
-        android:inputType="number"
         android:hint="@string/add_room_number"
+        android:inputType="number"
         tools:ignore="LabelFor" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/houseNumber"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText5"
+        android:layout_below="@+id/street"
         android:ems="10"
         android:inputType="number"
         android:hint="@string/add_house_number"
         tools:ignore="LabelFor" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/street"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/postCode"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/add_house_street"
+        android:inputType="textPersonName"
         tools:ignore="LabelFor" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/postCode"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/descip"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/add_house_poscode"
