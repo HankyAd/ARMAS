@@ -19,4 +19,6 @@
     <string name="add_room_number">Add Room Number</string>
     <string name="add_description">Add Description</string>
     <string name="add_change_photo">Add/Change Photo</string>
+    <string name="add_room_name">Add Room Name</string>
+    <string name="edit_room_name">Edit Room Name</string>
 </resources>
