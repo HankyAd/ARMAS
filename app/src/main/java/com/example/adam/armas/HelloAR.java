@@ -347,6 +347,7 @@ public class HelloAR
                         loadAllFromJsonFile(tracker1,getApplicationContext().getExternalFilesDir(null).getAbsolutePath() + "/armas/targets.json");
                         trackers.add(tracker1);
                         tracker1.start();
+                        mainActivity.setGotQrTrue();
                         Log.i("HelloAR", "got qrcode: " + text);
                         onAlert.invoke("got qrcode: " + text);
 

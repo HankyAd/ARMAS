@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity{
     private MessageAlerter onAlert;
     private String targetName;
     private Boolean asbestosDetected = false;
+    private Boolean qrDetected = false;
     private String imageName = null;
     private DAO dataAccessObject;
 
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity{
     View fabBGLayout;
     boolean isFABOpen = false;
     private WebView webView;
+
+
 
 
     public interface MessageAlerter {
@@ -102,8 +105,7 @@ public class MainActivity extends AppCompatActivity{
         final Button AddButton = (Button) findViewById(R.id.button3);
         final FloatingActionButton InfoButton = (FloatingActionButton) findViewById(R.id.InfoButton);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-
+        final ImageView scanBox = (ImageView) findViewById(R.id.scanBox);
 
         //fab1 = (FloatingActionButton) findViewById(R.id.fab1);
         //fab2= (FloatingActionButton) findViewById(R.id.fab2);
@@ -121,6 +123,7 @@ public class MainActivity extends AppCompatActivity{
                     glView.onResume();
                     AddButton.setVisibility(findViewById(R.id.button3).INVISIBLE);
                     textview.setVisibility(findViewById(R.id.textView100).VISIBLE);
+                    scanBox.setVisibility(findViewById(R.id.scanBox).VISIBLE);
 
                 } else {
                     clicked = false;
@@ -128,6 +131,7 @@ public class MainActivity extends AppCompatActivity{
                     ((ViewGroup) findViewById(R.id.preview)).removeAllViews();
                     AddButton.setVisibility(findViewById(R.id.button3).VISIBLE);
                     textview.setVisibility(findViewById(R.id.textView100).INVISIBLE);
+                    scanBox.setVisibility(findViewById(R.id.scanBox).INVISIBLE);
                 }
 
             }
@@ -172,6 +176,24 @@ public class MainActivity extends AppCompatActivity{
         });
 
         dao.createDirIfNotExists();
+    }
+
+
+
+    public void setGotQrTrue() {
+        try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TextView textview = (TextView) findViewById(R.id.textView100);
+                    ImageView scanBox = (ImageView) findViewById(R.id.scanBox);
+                    textview.setText("Got room look for asbestos!");
+                    scanBox.setVisibility(findViewById(R.id.scanBox).INVISIBLE);
+                }
+            });
+            qrDetected = true;
+        } catch (Exception ex) {
+        }
     }
 
 

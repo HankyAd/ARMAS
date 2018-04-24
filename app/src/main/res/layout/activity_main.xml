@@ -67,12 +67,25 @@
 
     <TextView
         android:id="@+id/textView100"
-        android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:layout_marginTop="100dp"
+        android:layout_width="315dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="80dp"
+        android:gravity="center_horizontal"
         android:text="@string/scan_qr_code_to_continue"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
+        android:textStyle="bold"
         android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/scanBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="TODO"
+        android:visibility="invisible"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="left|center"
+        app:srcCompat="@drawable/boxx" />
 
 
 </android.support.design.widget.CoordinatorLayout>
