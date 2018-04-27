@@ -186,8 +186,13 @@ public class DAO {
         database.execSQL("UPDATE " + table + " Set " + column + "= '" + content + "' WHERE " + table + "_ID = " + ID);
     }
 
+    /**
+     * table is the name of the intended affected table
+     * id is the unique identifier of the intended row in the table
+     * @param table
+     * @param id
+     */
     public void deleteRow(String table, String id){
-        System.out.println("DELETE FROM " + table + " WHERE " + table + "_ID = " + id);
         database.execSQL("DELETE FROM " + table + " WHERE " + table + "_ID = " + id);
     }
 

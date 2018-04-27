@@ -41,16 +41,13 @@ import cn.easyar.TargetStatus;
 import cn.easyar.Vec2I;
 import cn.easyar.Vec4I;
 
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import static cn.easyar.engine.EasyAR.getApplicationContext;
 
-public class HelloAR
-{
+public class HelloAR {
     private CameraDevice camera;
     private CameraFrameStreamer streamer;
     private ArrayList<ImageTracker> trackers;
@@ -71,20 +68,17 @@ public class HelloAR
     private DAO dao;
     private ImageTracker tracker1 = new ImageTracker();
 
-    public interface MessageAlerter
-    {
+    public interface MessageAlerter {
         void invoke(String s);
     }
 
-    public HelloAR(MainActivity mA)
-    {
+    public HelloAR(MainActivity mA) {
         trackers = new ArrayList<ImageTracker>();
         mainActivity = mA;
         dao = mainActivity.getDAO();
     }
 
-    private void loadFromImage(ImageTracker tracker, String path)
-    {
+    private void loadFromImage(ImageTracker tracker, String path) {
         ImageTarget target = new ImageTarget();
         String jstr = "{\n"
                 + "  \"images\" :\n"
@@ -104,8 +98,7 @@ public class HelloAR
         });
     }
 
-    private void loadAllFromJsonFile(ImageTracker tracker, String path)
-    {
+    private void loadAllFromJsonFile(ImageTracker tracker, String path) {
         for (ImageTarget target : ImageTarget.setupAll(path, StorageType.Assets)) {
             tracker.loadTarget(target, new FunctorOfVoidFromPointerOfTargetAndBool() {
                 @Override
@@ -118,8 +111,8 @@ public class HelloAR
             });
         }
     }
-    private void loadFromJsonFile(ImageTracker tracker, String path, String targetname)
-    {
+
+    private void loadFromJsonFile(ImageTracker tracker, String path, String targetname) {
         ImageTarget target = new ImageTarget();
         target.setup(path, StorageType.Assets, targetname);
         tracker.loadTarget(target, new FunctorOfVoidFromPointerOfTargetAndBool() {
@@ -129,8 +122,8 @@ public class HelloAR
             }
         });
     }
-    public boolean initialize(MessageAlerter onAlert)
-    {
+
+    public boolean initialize(MessageAlerter onAlert) {
         camera = new CameraDevice();
         streamer = new CameraFrameStreamer();
         streamer.attachCamera(camera);
@@ -142,13 +135,14 @@ public class HelloAR
         status &= camera.open(CameraDeviceType.Default);
         camera.setSize(new Vec2I(1280, 720));
 
-        if (!status) { return status; }
+        if (!status) {
+            return status;
+        }
 
         return status;
     }
 
-    public void dispose()
-    {
+    public void dispose() {
         for (ImageTracker tracker : trackers) {
             tracker.dispose();
         }
@@ -171,8 +165,8 @@ public class HelloAR
             camera = null;
         }
     }
-    public boolean start()
-    {
+
+    public boolean start() {
         boolean status = true;
         status &= (camera != null) && camera.start();
         status &= (streamer != null) && streamer.start();
@@ -184,8 +178,7 @@ public class HelloAR
         return status;
     }
 
-    public boolean stop()
-    {
+    public boolean stop() {
         boolean status = true;
         for (ImageTracker tracker : trackers) {
             status &= tracker.stop();
@@ -196,12 +189,11 @@ public class HelloAR
         return status;
     }
 
-    public void initGL()
-    {
+    public void initGL() {
         if (active_target != 0) {
             video.onLost();
             video.dispose();
-            video  = null;
+            video = null;
             tracked_target = 0;
             active_target = 0;
         }
@@ -218,14 +210,12 @@ public class HelloAR
         current_video_renderer = null;
     }
 
-    public void resizeGL(int width, int height)
-    {
+    public void resizeGL(int width, int height) {
         view_size = new Vec2I(width, height);
         viewport_changed = true;
     }
 
-    private void updateViewport()
-    {
+    private void updateViewport() {
         CameraCalibration calib = camera != null ? camera.cameraCalibration() : null;
         int rotation = calib != null ? calib.rotation() : 0;
         if (rotation != this.rotation) {
@@ -249,8 +239,7 @@ public class HelloAR
         }
     }
 
-    public void render()
-    {
+    public void render() {
         GLES20.glClearColor(1.f, 1.f, 1.f, 1.f);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
@@ -262,7 +251,9 @@ public class HelloAR
             }
         }
 
-        if (streamer == null) { return; }
+        if (streamer == null) {
+            return;
+        }
         Frame frame = streamer.peek();
         try {
             updateViewport();
@@ -285,14 +276,14 @@ public class HelloAR
                     if (active_target != 0 && active_target != id) {
                         video.onLost();
                         video.dispose();
-                        video  = null;
+                        video = null;
                         tracked_target = 0;
                         active_target = 0;
                     }
                     if (tracked_target == 0) {
                         if (video == null && video_renderers.size() > 0) {
                             String target_name = target.name();
-                            if  (video_renderers.get(1).texId() != 0) {
+                            if (video_renderers.get(1).texId() != 0) {
                                 video = new ARVideo();
                                 video.openTransparentVideoFile("gg.mp4", video_renderers.get(1).texId());
                                 current_video_renderer = video_renderers.get(1);
@@ -307,7 +298,7 @@ public class HelloAR
                             active_target = id;
                         }
                     }
-                    ImageTarget imagetarget = target instanceof ImageTarget ? (ImageTarget)(target) : null;
+                    ImageTarget imagetarget = target instanceof ImageTarget ? (ImageTarget) (target) : null;
                     if (imagetarget != null) {
                         if (current_video_renderer != null) {
                             video.update();
@@ -329,42 +320,46 @@ public class HelloAR
                 String text = frame.text();
                 //regex code
                 String regex = "[0-9]+";
+                //if statement to guarantee text has a value, and MUST be only an integer in String form.
                 if (text != null && !text.equals("") && text.matches(regex)) {
+                    //Queries room from collected Room_ID stored in QR code
+                    //Then validates the number of rows in m
                     Cursor m = dao.getRoomByID(text);
-                    System.out.println(m.getCount());
-                    if(m.getCount() >= 1) {
+                    if (m.getCount() >= 1) {
+                        //Queries DB for Asbestos rows with identified Room Number
+                        //Then validates number of rows returned
                         Cursor n = dao.getAsbestosByRoomID(text);
                         n.moveToFirst();
+                        if (n.getCount() >= 1) {
+                            //if there is a site of asbestos, update .json with image names
+                            updateJSON(n);
+                            //ensures tracker is stopped before reassigning image names
+                            tracker1.stop();
+                            //tracker is reassigned with newly created information from the targets.json file
+                            tracker1 = new ImageTracker();
+                            tracker1.attachStreamer(streamer);
+                            tracker1.setSimultaneousNum(1);
+                            loadAllFromJsonFile(tracker1, getApplicationContext().getExternalFilesDir(null).getAbsolutePath() + "/armas/targets.json");
+                            trackers.add(tracker1);
+                            //tracker is started
+                            tracker1.start();
+                            //Tells mainActivity that a qr has been scanned, so the UI can change
+                            mainActivity.setGotQrTrue();
+                            Log.i("HelloAR", "got qrcode: " + text);
+                            onAlert.invoke("got qrcode: " + text);
 
-                        updateJSON(n);
 
-                        tracker1.stop();
-
-                        tracker1 = new ImageTracker();
-                        tracker1.attachStreamer(streamer);
-                        tracker1.setSimultaneousNum(1);
-                        System.out.println(Environment.getExternalStorageDirectory() + "armas/targets.json");
-                        loadAllFromJsonFile(tracker1,getApplicationContext().getExternalFilesDir(null).getAbsolutePath() + "/armas/targets.json");
-                        trackers.add(tracker1);
-                        tracker1.start();
-                        mainActivity.setGotQrTrue();
-                        Log.i("HelloAR", "got qrcode: " + text);
-                        onAlert.invoke("got qrcode: " + text);
-
-
-
-
+                        }
 
                     }
                 }
             }
-        }
-        finally {
+        } finally {
             frame.dispose();
         }
     }
 
-    public void updateJSON(Cursor mCursor){
+    public void updateJSON(Cursor mCursor) {
 
         int i = 0;
         int count = mCursor.getCount();
@@ -373,53 +368,53 @@ public class HelloAR
         System.out.println("SAIFSAKDJBSAPDKJSH " + count);
         JSONObject images = new JSONObject();
         JSONArray comb = new JSONArray();
-        if(count != 0) {
-            do {
 
-                System.out.println("ssdksjdksjdksjdksjdksjdksjdksjdksjdks  " + mCursor.getCount());
-                names[i] = mCursor.getString(2);
-                JSONObject image = new JSONObject();
-                try {
-                    image.put("image", "/storage/emulated/0/Android/data/com.example.adam.armas/files/image/" + names[i] + ".jpg");
-                    image.put("name", names[i]);
-
-                    comb.put(image);
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    System.out.println("IMAGE PUT ERROR");
-                }
-                i++;
-                mCursor.moveToNext();
-            } while (!mCursor.isAfterLast());
+        do {
+            //Stores the image name value in names[i]
+            //JSONobject 'image' is then created inside the loop to prevent the overwriting of information during the loop
+            names[i] = mCursor.getString(2);
+            JSONObject image = new JSONObject();
 
             try {
-                images.accumulate("images", comb);
-            } catch (JSONException gf) {
-
+                //Image is then stored with file location and image name
+                image.put("image", "/storage/emulated/0/Android/data/com.example.adam.armas/files/image/" + names[i] + ".jpg");
+                image.put("name", names[i]);
+                //image is then stored as an array index on comb, to match desired format of JSON file
+                comb.put(image);
+            } catch (JSONException e) {
+                System.out.println("IMAGE PUT ERROR");
             }
+            //i is incremented, cursor is moved to next value. Loop is repeated until cursor's position exceeds the number of stored rows
+            i++;
+            mCursor.moveToNext();
+        } while (!mCursor.isAfterLast());
 
-            File mFolder = new File(getApplicationContext().getExternalFilesDir(null).getAbsolutePath().toString() + "/armas");
-            File jsonfile = new File(mFolder.getAbsolutePath() + "/targets.json");
+        try {
+            images.accumulate("images", comb);
+        } catch (JSONException gf) {
 
-            mFolder.mkdir();
-
-            try {
-                Writer output = null;
-                output = new BufferedWriter(new FileWriter(jsonfile));
-                output.write(images.toString(1));
-                output.close();
-                System.out.println("WRITTEN");
-            } catch (Exception e) {
-                System.out.println("FAILED TO WRITE 1");
-            }
-
-            try {
-
-                jsonfile.createNewFile();
-                System.out.println("FILE CREATED");
-            } catch (IOException ae) {
-                System.out.println("FILE NOT CREATED" + ae);
-            }
         }
+
+        File mFolder = new File(getApplicationContext().getExternalFilesDir(null).getAbsolutePath().toString() + "/armas");
+        File jsonfile = new File(mFolder.getAbsolutePath() + "/targets.json");
+
+        mFolder.mkdir();
+
+        try {
+            Writer output = null;
+            output = new BufferedWriter(new FileWriter(jsonfile));
+            output.write(images.toString(1));
+            output.close();
+        } catch (Exception e) {
+            System.out.println("FAILED TO WRITE");
+        }
+
+        try {
+            jsonfile.createNewFile();
+            System.out.println("FILE CREATED");
+        } catch (IOException ae) {
+            System.out.println("FILE NOT CREATED" + ae);
+        }
+
     }
 }
