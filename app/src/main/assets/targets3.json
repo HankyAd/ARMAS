@@ -12,26 +12,7 @@
     {
       "image" : "demo/demo3.jpg",
       "name" : "demo3"
-    },
-    {
-      "image" : "demo/demo4.jpg",
-      "name" : "demo4"
-    },
-    {
-      "image" : "demo/demo5.jpg",
-      "name" : "demo5"
-    },
-    {
-      "image" : "demo/demo6.jpg",
-      "name" : "demo6"
-    },
-    {
-      "image" : "demo/demo7.jpg",
-      "name" : "demo7"
-    },
-    {
-      "image" : "demo/demo8.jpg",
-      "name" : "demo8"
     }
   ]
 }
+

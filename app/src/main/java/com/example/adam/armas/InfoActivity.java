@@ -58,18 +58,22 @@ public class InfoActivity extends Activity {
 
         Cursor asbestos = dao.getAsbestosByAsbestosID(asbID);
 
-        Cursor room = dao.getRoomByID(asbestos.getString(3));
-        room.moveToFirst();
-        Cursor house = dao.getHouseByID(asbestos.getString(3));
-        house.moveToFirst();
+
+
         Cursor asb = dao.getAsbestosByAsbestosID(asbID);
         asb.moveToFirst();
 
         TextView t = findViewById(R.id.textView9);
         t.setText("Description: " + asb.getString(1));
 
+        Cursor room = dao.getRoomByID(asbestos.getString(3));
+        room.moveToFirst();
+
         t = findViewById(R.id.textView10);
         t.setText("Room Name: " + room.getString(1));
+
+        Cursor house = dao.getHouseByID(asbestos.getString(3));
+        house.moveToFirst();
 
         t = findViewById(R.id.textView11);
         t.setText("Number: " + house.getString(1));

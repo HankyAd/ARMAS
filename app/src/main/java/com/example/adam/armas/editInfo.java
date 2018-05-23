@@ -44,6 +44,10 @@ public class editInfo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        GlobalClass g = (GlobalClass)this.getApplication();
+        dao = g.getDAO();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_info);
 
@@ -57,6 +61,7 @@ public class editInfo extends AppCompatActivity {
 
         test.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                deleteEntry();
                 finish();
             }
 
@@ -74,6 +79,8 @@ public class editInfo extends AppCompatActivity {
 
         Save2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+
+
 
 
                 ImageView imagView = (ImageView) findViewById(R.id.imageView8);
@@ -199,6 +206,10 @@ public class editInfo extends AppCompatActivity {
         }
     }
 
+
+    public void deleteEntry(){
+        dao.deleteRow("Asbestos", dao.getAsbID());
+    }
 
 }
 

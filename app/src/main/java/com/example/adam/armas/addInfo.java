@@ -82,8 +82,10 @@ public class addInfo extends AppCompatActivity {
                 imagView.buildDrawingCache();
                 Bitmap bmp = imagView.getDrawingCache();
                 File storageLoc = new File(getApplicationContext().getExternalFilesDir(null).getAbsolutePath().toString() + "/image"); //context.getExternalFilesDir(null);
-
-                File file = new File(storageLoc, "image" + ".jpg");
+                //determine image name
+                EditText t = findViewById(R.id.houseNumber);
+                EditText y = findViewById(R.id.roomName);
+                File file = new File(storageLoc, t.getText().toString() + y.getText().toString() + ".jpg");
 
                 try{
 
@@ -196,7 +198,7 @@ public class addInfo extends AppCompatActivity {
             Cursor room = dao.getRoomByHouseID(house.getString(0));
             if(room.getCount() > 0){
                 System.out.println("HELP "+dao.retRoomByHouseID(house.getString(0)));
-                dao.createAsbestos(asbestosDescrip, "image", house.getString(0), room.getString(0));
+                dao.createAsbestos(asbestosDescrip, houseNum + roomName , house.getString(0), room.getString(0));
 
             }
         }
